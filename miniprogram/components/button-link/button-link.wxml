@@ -1,0 +1,4 @@
+<!--components/button-link/button-link.wxml-->
+<view>
+ <t-link size="small" navigator-props="{{ { url } }}" theme="primary" content="{{label}}"  ></t-link>
+</view>

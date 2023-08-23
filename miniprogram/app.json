@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/example/example",
+    "pages/index/index",
+    "pages/example/examples/parent-child-change-data/parent-child-change-data"
+  ],
+  "tabBar": {
+    "list": [{
+        "pagePath": "pages/example/example",
+        "text": "最佳实践"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "关于我"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

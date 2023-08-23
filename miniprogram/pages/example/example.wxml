@@ -1,0 +1,5 @@
+<!--pages/example.wxml-->
+<view class="container">
+    <button-link url="/pages/example/examples/parent-child-change-data/parent-child-change-data" label="父子通信"></button-link>
+</view>
+

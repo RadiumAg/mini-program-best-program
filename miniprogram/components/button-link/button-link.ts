@@ -23,11 +23,11 @@ Component({
   /**
    * 组件的方法列表
    */
-  methods: {
-        handleToPage(){
-         wx.navigateTo({url:this.data.url}).catch((reason)=>{
-           console.error(reason)
-         })
-       }
-  }
+
+   methods:{
+     handleToPage(){
+       wx.navigateTo({ url: this.properties.url });
+     }
+   }
+  
 })

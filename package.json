@@ -7,6 +7,7 @@
   "author": "",
   "license": "",
   "devDependencies": {
+    "eslint": "^8.47.0",
     "miniprogram-api-typings": "^3.11.0"
   }
 }

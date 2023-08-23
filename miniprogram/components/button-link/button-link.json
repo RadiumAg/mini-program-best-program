@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "t-link": "tdesign-miniprogram/link/link"
+    "t-button": "tdesign-miniprogram/button/button"
   }
 }

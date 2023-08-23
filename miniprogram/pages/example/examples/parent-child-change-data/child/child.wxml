@@ -1,0 +1,4 @@
+<view class="custom-class"> 
+  <text>{{ value }}</text>
+  <button bind:tap="handleTap">点击</button>
+</view>

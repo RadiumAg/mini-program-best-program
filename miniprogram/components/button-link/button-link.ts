@@ -26,7 +26,9 @@ Component({
 
    methods:{
      handleToPage(){
-       wx.navigateTo({ url: this.properties.url });
+       wx.navigateTo({ url: this.properties.url }).catch((resean)=>{
+             console.log(resean)
+       });
      }
    }
   

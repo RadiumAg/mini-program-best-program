@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    value: 1,
+    modelValue: 1,
   },
 
   /**
@@ -62,5 +63,10 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  handleUpdate(event) {
+    console.log(event)
+    this.setData({ value: event.detail })
   }
 })

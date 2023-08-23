@@ -1,2 +1,8 @@
 <!--pages/example/examples/parent-child-change-data/parent-child-change-data.wxml-->
-<text></text>
+
+<view>使用事件更新</view>
+<child custom-class="example1" value="{{value}}" bind:updatevalue="handleUpdate"></child>
+
+<view>使用model:value更新</view>
+<child model:value="{{modelValue}}"></child>
+

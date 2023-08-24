@@ -1,0 +1,9 @@
+<!--pages/example/examples/dialog/dialog/dialog.wxml-->
+<view class="dialog" wx:if="{{ realVisible }}">
+
+  <view class="content {{ transitionClass }}" bind:transitionend="onTransitionEnd">
+    <slot></slot>
+  </view>
+
+  <view class="overlay" bind:tap="handleOverlayClick"></view>
+</view>

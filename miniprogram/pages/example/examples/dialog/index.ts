@@ -1,12 +1,13 @@
-// pages/example/examples/dialog/dialog.ts
+// pages/example/examples/dialog/index.ts
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    visible: false,
   },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -62,5 +63,13 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  handleToggleDialogVisible() {
+    this.setData({ visible: !this.data.visible })
+  },
+
+  handleDialogClose() {
+    this.setData({ visible: false })
   }
 })

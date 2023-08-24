@@ -2,5 +2,5 @@
 <view class="container">
   <button-link url="/pages/example/examples/parent-child-change-data/parent-child-change-data" label="父子通信"></button-link>
   <button-link url="/pages/example/examples/todo-list/todo-list" label="todo-list"></button-link>
-
+  <button-link url="/pages/example/examples/dialog/index" label="dialog"></button-link>
 </view>

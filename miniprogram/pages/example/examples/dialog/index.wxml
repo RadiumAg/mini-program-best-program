@@ -1,0 +1,4 @@
+<!--pages/example/examples/dialog/index.wxml-->
+<dialog visible="{{ visible }}" class="{{ transitionClass }}" bind:confirm="handleDialogClose">1112121</dialog>
+
+<t-button size="small" theme="primary" bind:tap="handleToggleDialogVisible">显示</t-button>

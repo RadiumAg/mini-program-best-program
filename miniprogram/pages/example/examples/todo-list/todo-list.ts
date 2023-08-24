@@ -1,6 +1,5 @@
-// pages/index/index.ts
+// pages/example/examples/todo-list/todo-list.ts
 Page({
-
 
   /**
    * 页面的初始数据
@@ -8,6 +7,7 @@ Page({
   data: {
 
   },
+
 
   /**
    * 生命周期函数--监听页面加载

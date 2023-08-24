@@ -26,6 +26,6 @@ module.exports = {
     requirePlugin: true,
     requireMiniProgram: true,
   },
-  // extends: 'eslint:recommended',
+  extends: 'eslint:recommended',
   rules: {},
 }

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "child": "./child/child"
+    "child": "./child/child",
+    "child-model-value": "./child-model-value/child"
   }
 }

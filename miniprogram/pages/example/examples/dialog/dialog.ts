@@ -1,6 +1,5 @@
-// pages/index/index.ts
+// pages/example/examples/dialog/dialog.ts
 Page({
-
 
   /**
    * 页面的初始数据

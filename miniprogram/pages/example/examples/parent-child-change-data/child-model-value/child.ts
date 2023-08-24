@@ -3,14 +3,14 @@ Component({
   /**
    * 组件的属性列表
    */
-  externalClasses: ['custom-class'],
+  externalClasses:['custom-class'],
   properties: {
-    value: {
-      type: Number
-    },
+      value: {
+        type: Number
+      },
   },
 
-  observers: {},
+  observers:{},
 
   /**
    * 组件的初始数据
@@ -19,7 +19,7 @@ Component({
 
   },
 
-  created() {
+  created(){
     console.log(this)
   },
 
@@ -27,8 +27,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    handleTap() {
-      this.triggerEvent('updatevalue', { value: this.data.value + 1 })
-    },
+      handleTap(){
+        this.setData({value: this.data.value + 1})
+      },
   },
 })

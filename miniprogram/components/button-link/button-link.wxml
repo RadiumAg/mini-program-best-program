@@ -1,4 +1,4 @@
 <!--components/button-link/button-link.wxml-->
-<view>
+<view class="container">
   <text class="link" size="small" theme="light" variant="text" bind:tap="handleToPage">{{ label }}</text>
 </view>

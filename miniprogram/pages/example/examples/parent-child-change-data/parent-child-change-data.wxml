@@ -1,8 +1,8 @@
 <!--pages/example/examples/parent-child-change-data/parent-child-change-data.wxml-->
 
-<view>使用事件更新</view>
+<view>使用事件更新，更详细的来说，是可控组件</view>
 <child custom-class="example1" value="{{value}}" bind:updatevalue="handleUpdate"></child>
 
-<view>使用model:value更新</view>
-<child model:value="{{modelValue}}"></child>
+<view>使用model:value更新，不可控组件，只是顺道更新了一下父组件的值</view>
+<child-model-value model:value="{{modelValue}}"></child-model-value>
 

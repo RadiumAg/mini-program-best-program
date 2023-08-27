@@ -1,0 +1,9 @@
+<view class="container custom-class">
+  <view class="descrition">
+    <text class="product-name">Super-TodoList</text>
+  </view>
+
+  <to-do-input class="to-do-input" bind:addtodo="handleToDo"></to-do-input>
+
+  <to-do-content to-do-array="{{toDoArray}}"></to-do-content>
+</view>

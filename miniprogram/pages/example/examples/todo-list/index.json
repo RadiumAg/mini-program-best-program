@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "to-do-list": "./components/todo-list"
+  }
+}

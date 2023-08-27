@@ -3,8 +3,8 @@
     "pages/example/example",
     "pages/index/index",
     "pages/example/examples/parent-child-change-data/parent-child-change-data",
-    "pages/example/examples/todo-list/todo-list",
-    "pages/example/examples/dialog/index"
+    "pages/example/examples/dialog/index",
+    "pages/example/examples/todo-list/index"
   ],
   "tabBar": {
     "list": [{

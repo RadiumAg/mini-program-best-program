@@ -1,0 +1,28 @@
+/* pages/example/examples/todo-list/components/to-do-content/to-do-content.wxss */
+
+:host {
+  height: 700rpx;
+  display: block;
+  padding: 20rpx;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.container {
+  display: flex;
+  overflow: auto;
+  height: 100%;
+  flex-direction: column;
+  justify-items: flex-start;
+
+  .to-do-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+  }
+
+  .ok {
+    text-decoration: line-through;
+  }
+}

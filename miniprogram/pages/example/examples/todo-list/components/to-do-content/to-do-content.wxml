@@ -1,0 +1,8 @@
+<!--pages/example/examples/todo-list/components/to-do-content/to-do-content.wxml-->
+<import src="../template/item" />
+
+<view class="container">
+  <checkbox-group bind:change="handleStatusChange">
+    <template wx:for="{{ toDoArray }}" wx:for-item="toDo" wx:key="timestamp" data="{{toDo, class:'to-do-item' }}" is="item"></template>
+  </checkbox-group>
+</view>

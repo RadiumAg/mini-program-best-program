@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "to-do-input": "./to-do-input/to-do-input",
+    "to-do-content": "./to-do-content/to-do-content"
+  }
+}

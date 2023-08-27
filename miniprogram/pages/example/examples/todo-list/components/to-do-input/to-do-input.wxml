@@ -1,0 +1,5 @@
+<view class="header">
+  <input value="{{ toDoTitle }}" placeholder="请输入你的待办事项" bind:change="handleInputChange" />
+
+  <text class="add-btn" bind:tap="handleAdd">添加</text>
+</view>

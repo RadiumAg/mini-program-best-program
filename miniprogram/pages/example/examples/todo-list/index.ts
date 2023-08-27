@@ -1,4 +1,4 @@
-// pages/example/examples/todo-list/todo-list.ts
+// pages/example/examples/todo-list/index.ts
 Page({
 
   /**

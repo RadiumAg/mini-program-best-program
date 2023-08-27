@@ -1,0 +1,21 @@
+/* pages/example/examples/todo-list/todo-list.wxss */
+
+
+.container {
+  width: 600rpx;
+
+  .descrition {
+    display: flex;
+    margin-bottom: 20rpx;
+    justify-content: space-between;
+
+    .product-name {
+      font-weight: bold;
+    }
+  }
+
+  .to-do-input {
+    display: block;
+    margin-bottom: 20rpx;
+  }
+}

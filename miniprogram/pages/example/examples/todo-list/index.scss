@@ -1,0 +1,13 @@
+/* pages/example/examples/todo-list/index.wxss */
+:host {
+  width: 100vw;
+  height: 100vh;
+  display: inline-block;
+  background-color: #efefef;
+}
+
+.to-do-list {
+  width: 600rpx;
+  display: block;
+  margin: 15vh auto 0 auto;
+}

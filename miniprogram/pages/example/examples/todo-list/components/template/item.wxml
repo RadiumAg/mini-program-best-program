@@ -1,0 +1,6 @@
+<template name="item">
+  <label class="{{class}} {{toDo.isOk ? 'ok' : ''}}">
+    <checkbox value="{{toDo.timeStamp}}" />
+    {{toDo.value}}
+  </label>
+</template>

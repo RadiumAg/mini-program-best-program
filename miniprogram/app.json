@@ -4,10 +4,12 @@
     "pages/index/index",
     "pages/example/examples/parent-child-change-data/parent-child-change-data",
     "pages/example/examples/dialog/index",
-    "pages/example/examples/todo-list/index"
+    "pages/example/examples/todo-list/index",
+    "pages/example/examples/child-export/child-export"
   ],
   "tabBar": {
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/example/example",
         "text": "最佳实践"
       },

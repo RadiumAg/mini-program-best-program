@@ -3,4 +3,5 @@
   <button-link url="/pages/example/examples/parent-child-change-data/parent-child-change-data" label="父子通信"></button-link>
   <button-link url="/pages/example/examples/todo-list/index" label="todo-list"></button-link>
   <button-link url="/pages/example/examples/dialog/index" label="dialog"></button-link>
+  <button-link url="/pages/example/examples/child-export/child-export" label="父组件获得子组件实例"></button-link>
 </view>

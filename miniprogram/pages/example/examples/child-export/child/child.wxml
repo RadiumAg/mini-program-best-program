@@ -1,0 +1,2 @@
+<!--pages/example/examples/child-export/child/child.wxml-->
+<text>{{ value }}</text>

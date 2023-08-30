@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "child" : "./child/child"
+  }
+}

@@ -1,0 +1,3 @@
+<!--pages/example/examples/child-export/page.wxml-->
+<child class="child"></child>
+<button bind:tap="handleClick">+1</button>

@@ -5,7 +5,8 @@
     "pages/example/examples/parent-child-change-data/parent-child-change-data",
     "pages/example/examples/dialog/index",
     "pages/example/examples/todo-list/index",
-    "pages/example/examples/child-export/child-export"
+    "pages/example/examples/child-export/child-export",
+    "pages/example/examples/component-generics/parent"
   ],
   "tabBar": {
     "list": [

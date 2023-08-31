@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "component-generics": "./components/component-generics",
+    "t-button": "tdesign-miniprogram/button/button"
+  }
+}

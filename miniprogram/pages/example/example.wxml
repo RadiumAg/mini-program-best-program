@@ -5,4 +5,5 @@
   <button-link url="/pages/example/examples/dialog/index" label="dialog"></button-link>
   <button-link url="/pages/example/examples/child-export/child-export" label="父组件获得子组件实例"></button-link>
   <button-link url="/pages/example/examples/component-generics/parent" label="抽象节点"></button-link>
+  <button-link url="/pages/example/examples/router-query/router-query" label="页面参数传递"></button-link>
 </view>

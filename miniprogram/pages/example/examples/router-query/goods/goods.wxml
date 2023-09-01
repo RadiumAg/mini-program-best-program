@@ -1,0 +1,2 @@
+<!--pages/example/examples/router-query/goods/goods.wxml-->
+<text>{{ goodsId }}</text>

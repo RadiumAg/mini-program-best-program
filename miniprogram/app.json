@@ -6,7 +6,9 @@
     "pages/example/examples/dialog/index",
     "pages/example/examples/todo-list/index",
     "pages/example/examples/child-export/child-export",
-    "pages/example/examples/component-generics/parent"
+    "pages/example/examples/component-generics/parent",
+    "pages/example/examples/router-query/router-query",
+    "pages/example/examples/router-query/goods/goods"
   ],
   "tabBar": {
     "list": [

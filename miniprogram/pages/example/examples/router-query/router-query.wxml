@@ -1,0 +1,4 @@
+<text data-key="商品1" bind:tap="handleToGoods">商品1</text>
+<text data-key="商品2" bind:tap="handleToGoods">商品2</text>
+
+

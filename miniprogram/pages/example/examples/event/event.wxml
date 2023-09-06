@@ -1,0 +1,24 @@
+<!--pages/example/examples/event.wxml-->
+<text>绑定冒泡事件</text>
+
+<view id="outer" bind:tap="handleTap1">
+    outer view
+    <view id="middle" catch:tap="handleTap2">
+        middle
+        <view id="inner" bind:tap="handleTap3">
+            inner view
+        </view>
+    </view>
+</view>
+
+
+<text>互斥事件绑定</text>
+<view id="outer" mut-bind:tap="handleTap1">
+    outer view
+    <view id="middle" bind:tap="handleTap2">
+        middle view
+        <view id="inner" mut-bind:tap="handleTap3">
+            inner view
+        </view>
+    </view>
+</view>

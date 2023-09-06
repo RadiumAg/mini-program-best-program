@@ -8,7 +8,8 @@
     "pages/example/examples/child-export/child-export",
     "pages/example/examples/component-generics/parent",
     "pages/example/examples/router-query/router-query",
-    "pages/example/examples/router-query/goods/goods"
+    "pages/example/examples/router-query/goods/goods",
+    "pages/example/examples/event/event"
   ],
   "tabBar": {
     "list": [

@@ -1,0 +1,1 @@
+<view class="controller" style="height:{{position.height}}rpx;width:{{position.width}}rpx"></view>

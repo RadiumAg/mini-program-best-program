@@ -1,0 +1,13 @@
+<view class="imageCrop view-class">
+  <view class="mask">
+    <mask-item class="leftMask" crop="{{crop}}" position="top"></mask-item>
+
+    <view class="cropArea">
+      <mask-item crop="{{crop}}" position="left"></mask-item>
+      <crop width="{{crop.width}}" height="{{crop.height}}"></crop>
+      <fill-mask-item></fill-mask-item>
+    </view>
+
+    <fill-mask-item></fill-mask-item>
+  </view>
+</view>

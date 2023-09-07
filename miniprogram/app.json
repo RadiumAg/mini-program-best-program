@@ -9,7 +9,8 @@
     "pages/example/examples/component-generics/parent",
     "pages/example/examples/router-query/router-query",
     "pages/example/examples/router-query/goods/goods",
-    "pages/example/examples/event/event"
+    "pages/example/examples/event/event",
+    "pages/example/examples/image-crop-example/image-crop-example"
   ],
   "tabBar": {
     "list": [

@@ -1,0 +1,39 @@
+.controller {
+    position: absolute;
+    z-index: 20;
+    
+    .topLeft {
+        border-left:  5px solid #fff ;
+       
+    }
+
+    .topRight {
+        &::before {
+
+        }
+   
+        &::after {
+           
+        }
+    }
+
+    .bottomLeft {
+        &::before {
+
+        }
+   
+        &::after {
+           
+        }
+    }
+
+    .bottomRight {
+        &::before {
+
+        }
+   
+        &::after {
+           
+        }
+    }
+}

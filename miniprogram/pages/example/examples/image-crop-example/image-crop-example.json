@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "image-copper":"./image-crop/image-crop"
+  }
+}

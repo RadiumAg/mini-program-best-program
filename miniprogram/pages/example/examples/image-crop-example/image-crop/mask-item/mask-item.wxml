@@ -1,0 +1,4 @@
+<view
+  class="maskItem {{ autoFillClass }}"
+  style="width:{{size.width}}rpx;height:{{size.height}}rpx"
+></view>

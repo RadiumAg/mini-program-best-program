@@ -1,4 +1,1 @@
-<view
-  class="maskItem {{ autoFillClass }}"
-  style="width:{{size.width}}rpx;height:{{size.height}}rpx"
-></view>
+<view class="maskItem {{ autoFillClass }}" style="width:{{size.width}};height:{{size.height}}"></view>

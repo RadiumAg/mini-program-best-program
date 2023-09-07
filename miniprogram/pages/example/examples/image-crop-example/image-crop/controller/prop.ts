@@ -1,6 +1,6 @@
 /** @format */
 
-import type {Crop} from "../type";
+import type { Crop } from "../type";
 
 const props = {
   crop: {
@@ -13,9 +13,9 @@ const props = {
     } as Crop,
   },
 
-  position: {
+  type: {
     type: String,
   },
 };
 
-export {props};
+export { props };

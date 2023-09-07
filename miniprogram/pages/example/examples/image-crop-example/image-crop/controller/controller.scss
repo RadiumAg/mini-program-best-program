@@ -1,39 +1,104 @@
+:host {
+  --width: 10rpx;
+}
+
 .controller {
-    position: absolute;
-    z-index: 20;
-    
-    .topLeft {
-        border-left:  5px solid #fff ;
-       
+  position: absolute;
+  z-index: 20;
+
+  &.topLeft {
+    &::before {
+      left: 0;
+      height: 100%;
+      content: '';
+      display: block;
+      width: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(-100%) translateY(calc(-1 * var(--width)));
     }
 
-    .topRight {
-        &::before {
+    &::after {
+      top: 0;
+      width: 100%;
+      content: '';
+      display: block;
+      height: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(calc(-1 * var(--width))) translateY(-100%);
+    }
+  }
 
-        }
-   
-        &::after {
-           
-        }
+  &.topRight {
+    &::before {
+      right: 0;
+      height: 100%;
+      content: '';
+      display: block;
+      width: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(100%) translateY(calc(-1 * var(--width)));
     }
 
-    .bottomLeft {
-        &::before {
+    &::after {
+      top: 0;
+      width: 100%;
+      content: '';
+      display: block;
+      height: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(calc(var(--width))) translateY(-100%);
+    }
+  }
 
-        }
-   
-        &::after {
-           
-        }
+  &.bottomLeft {
+    &::before {
+      bottom: 0;
+      height: 100%;
+      content: '';
+      display: block;
+      width: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(-100%) translateY(calc(1 * var(--width)));
     }
 
-    .bottomRight {
-        &::before {
-
-        }
-   
-        &::after {
-           
-        }
+    &::after {
+      bottom: 0;
+      width: 100%;
+      content: '';
+      display: block;
+      height: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(calc(-1 * var(--width))) translateY(100%);
     }
+  }
+
+  &.bottomRight {
+    &::before {
+      right: 0;
+      height: 100%;
+      content: '';
+      display: block;
+      width: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(100%) translateY(calc(1 * var(--width)));
+    }
+
+    &::after {
+      bottom: 0;
+      width: 100%;
+      content: '';
+      display: block;
+      height: var(--width);
+      position: absolute;
+      background-color: #fff;
+      transform: translateX(calc(var(--width))) translateY(100%);
+    }
+  }
 }

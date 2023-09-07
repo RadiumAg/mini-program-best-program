@@ -1,8 +1,8 @@
 /** @format */
 
-import {Crop} from "../type";
-import {props} from "./props";
-import type {MaskItemPosition} from "./type";
+import { Crop } from "../type";
+import { props } from "./props";
+import type { MaskItemPosition } from "./type";
 
 Component({
   behaviors: ["wx://component-export"],
@@ -40,15 +40,15 @@ Component({
         case "top": {
           this.setData({
             "size.width": "100%",
-            "size.height": crop.x,
+            "size.height": `${crop.y}rpx`,
           });
           break;
         }
 
         case "left": {
           this.setData({
-            "size.width": crop.x,
-            "size.height": crop.height,
+            "size.width": `${crop.x}rpx`,
+            "size.height": `${crop.height}rpx`,
           });
           break;
         }

@@ -1,1 +1,2 @@
-<view class="controller" style="height:{{position.height}}rpx;width:{{position.width}}rpx"></view>
+<view bind:touchstart="_touchStart" bind:touchmove="_touchMove" bind:touchend="_touchEnd" class="controller {{ typeClass }}" style="height:{{size.height}}rpx;width:{{size.width}}rpx;left:{{position.x}}rpx;top:{{position.y}}rpx">
+</view>

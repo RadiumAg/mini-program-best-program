@@ -1,1 +1,1 @@
-<view class="crop" style="width:{{width}}px;height:{{height}}px"></view>
+<view class="crop" style="width:{{width}}rpx;height:{{height}}rpx"></view>

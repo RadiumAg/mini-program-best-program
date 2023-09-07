@@ -10,4 +10,9 @@
 
     <fill-mask-item></fill-mask-item>
   </view>
+
+  <controller type="top-left" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
+  <controller type="top-right" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
+  <controller type="bottom-right" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
+  <controller type="bottom-left" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
 </view>

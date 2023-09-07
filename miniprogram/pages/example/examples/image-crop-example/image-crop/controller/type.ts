@@ -1,4 +1,10 @@
 /** @format */
-type Position = "left-top" | "right-top" | "right-bottom" | "left-bottom";
+type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
-export type {Position};
+
+type UpdateEvent = {
+  xDistance: number;
+  yDistance: number;
+}
+
+export type { Position, UpdateEvent };

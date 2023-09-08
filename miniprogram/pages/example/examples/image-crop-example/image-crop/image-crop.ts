@@ -1,8 +1,9 @@
 /** @format */
 
-import type { UpdateEvent } from "./controller/type";
-import { props } from "./props";
-import { Crop } from "./type";
+import {props} from "./props";
+
+import type {ActiveController, Crop} from "./type";
+import type {ControllerTouchStart, UpdateEvent} from "./controller/type";
 
 Component({
   externalClasses: ["view-class"],
@@ -16,29 +17,65 @@ Component({
       height: 500,
       width: 500,
     } as Crop,
+
+    _isUpdate: false,
+
+    _activeController: null as ActiveController,
   },
 
   methods: {
     handleControllerUpdate(event: WechatMiniprogram.CustomEvent<UpdateEvent>) {
-      const { detail: { xDistance, yDistance } } = event;
+      if (this.data._isUpdate) return;
+      const {
+        detail: {x, y, height, width},
+      } = event;
 
-      this.setData({
-        crop: {
-          y: 20,
-          x: this.data.crop.x + xDistance,
-          height: 500,
-          width: this.data.crop.width + xDistance,
+      this.data._isUpdate = true;
+
+      this.setData(
+        {
+          crop: {
+            y,
+            x,
+            height,
+            width,
+          },
+        },
+        async () => {
+          const controllerArray = this.selectAllComponents(".controller");
+
+          for (const controller of controllerArray) {
+            await controller.update();
+          }
+
+          this.data._isUpdate = false;
         }
-      }, () => {
-        const controllerArray = this.selectAllComponents('.controller');
-        controllerArray.forEach(_ => _.update())
-      })
-    }
+      );
+    },
+
+    handleTouchMove(event: WechatMiniprogram.TouchEvent) {
+      if (this.data._isUpdate) return;
+      this.data._activeController?.touchMove(event);
+    },
+
+    handleTouchEnd() {
+      this.data._activeController = null;
+    },
+
+    handeControllerTouchStart(
+      event: WechatMiniprogram.CustomEvent<ControllerTouchStart>
+    ) {
+      const {type} = event.detail;
+      const controllerArray = this.selectAllComponents(".controller");
+
+      this.data._activeController = controllerArray.find(
+        (_) => _.type === type
+      )!;
+    },
   },
 
-
   attached() {
-    const controllerArray = this.selectAllComponents('.controller');
-    controllerArray.forEach(_ => _.update())
-  }
+    const controllerArray = this.selectAllComponents(".controller");
+    controllerArray.forEach((_) => _.update());
+  },
 });

@@ -1,18 +1,49 @@
-<view class="imageCrop view-class">
+<view
+  class="imageCrop view-class"
+  catch:touchmove="handleTouchMove"
+  catch:touchend="handleTouchEnd"
+>
   <view class="mask">
     <mask-item class="leftMask" crop="{{crop}}" position="top"></mask-item>
 
     <view class="cropArea">
       <mask-item crop="{{crop}}" position="left"></mask-item>
-      <crop width="{{crop.width}}" height="{{crop.height}}"></crop>
+      <crop width="{{crop.width}}" height="{{crop.height}}">
+        <controller
+          type="top-left"
+          class="controller"
+          crop="{{crop}}"
+          bind:controllerTouchStart="handeControllerTouchStart"
+          bind:update="handleControllerUpdate"
+        ></controller>
+
+        <controller
+          type="top-right"
+          class="controller"
+          crop="{{crop}}"
+          bind:controllerTouchStart="handeControllerTouchStart"
+          bind:update="handleControllerUpdate"
+        ></controller>
+
+        <controller
+          type="bottom-right"
+          class="controller"
+          crop="{{crop}}"
+          bind:controllerTouchStart="handeControllerTouchStart"
+          bind:update="handleControllerUpdate"
+        ></controller>
+
+        <controller
+          type="bottom-left"
+          class="controller"
+          crop="{{crop}}"
+          bind:controllerTouchStart="handeControllerTouchStart"
+          bind:update="handleControllerUpdate"
+        ></controller>
+      </crop>
       <fill-mask-item></fill-mask-item>
     </view>
 
     <fill-mask-item></fill-mask-item>
   </view>
-
-  <controller type="top-left" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
-  <controller type="top-right" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
-  <controller type="bottom-right" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
-  <controller type="bottom-left" class="controller" crop="{{crop}}" bind:update="handleControllerUpdate"></controller>
 </view>

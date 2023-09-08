@@ -1,10 +1,16 @@
 /** @format */
+
 type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
-
 type UpdateEvent = {
-  xDistance: number;
-  yDistance: number;
-}
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
 
-export type { Position, UpdateEvent };
+type ControllerTouchStart = {
+  type: Position;
+};
+
+export type {Position, UpdateEvent, ControllerTouchStart};

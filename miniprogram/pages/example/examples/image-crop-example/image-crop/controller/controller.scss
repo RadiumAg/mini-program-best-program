@@ -3,10 +3,15 @@
 }
 
 .controller {
+  width: 66rpx;
+  height: 66rpx;
   position: absolute;
   z-index: 20;
 
-  &.topLeft {
+  &.top-left {
+     top:0;
+     left: 0;
+
     &::before {
       left: 0;
       height: 100%;
@@ -30,7 +35,10 @@
     }
   }
 
-  &.topRight {
+  &.top-right {
+    top:0;
+    right: 0;
+
     &::before {
       right: 0;
       height: 100%;
@@ -54,7 +62,10 @@
     }
   }
 
-  &.bottomLeft {
+  &.bottom-left {
+    bottom: 0;
+    left: 0;
+
     &::before {
       bottom: 0;
       height: 100%;
@@ -78,7 +89,10 @@
     }
   }
 
-  &.bottomRight {
+  &.bottom-right {
+    right: 0;
+    bottom: 0;
+
     &::before {
       right: 0;
       height: 100%;

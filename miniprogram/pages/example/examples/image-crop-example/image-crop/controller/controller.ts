@@ -1,8 +1,9 @@
 /** @format */
-
-import {Crop} from "../type";
+import {getPxToRpx} from "../utils/page";
 import {props} from "./prop";
 import {ControllerTouchStart, Position, UpdateEvent} from "./type";
+
+import type {Crop} from "../type";
 
 Component({
   data: {
@@ -207,8 +208,7 @@ Component({
 
   lifetimes: {
     async attached() {
-      const {screenWidth} = await wx.getSystemInfo();
-      this.data._pxToRpx = 750 / screenWidth;
+      this.data._pxToRpx = await getPxToRpx();
     },
   },
 
@@ -217,6 +217,12 @@ Component({
       update: this.updated.bind(this),
       touchMove: this._touchMove.bind(this),
       type: this.data.type,
+      getPosition: () => {
+        return {...this.data.position};
+      },
+      getSize: () => {
+        return {...this.data.size};
+      },
     };
   },
 });

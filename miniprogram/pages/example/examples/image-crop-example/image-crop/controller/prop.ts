@@ -1,6 +1,6 @@
 /** @format */
 
-import type {Crop} from "../type";
+import type {Container, Crop} from "../type";
 
 const props = {
   crop: {
@@ -11,6 +11,17 @@ const props = {
       width: 0,
       height: 0,
     } as Crop,
+  },
+
+  container: {
+    type: Object,
+    value: {
+      top: 0,
+      left: 0,
+      width: 0,
+      right: 0,
+      height: 0,
+    } as Container,
   },
 
   type: {

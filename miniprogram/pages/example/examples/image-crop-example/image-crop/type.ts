@@ -8,4 +8,12 @@ type Crop = {
 
 type ActiveController = WechatMiniprogram.Component.TrivialInstance | null;
 
-export type {Crop, ActiveController};
+type Container = {
+  top: number;
+  left: number;
+  width: number;
+  right: number;
+  height: number;
+};
+
+export type {Crop, Container, ActiveController};

@@ -1,3 +1,5 @@
+/** @format */
+
 :host {
   --width: 10rpx;
 }
@@ -9,13 +11,13 @@
   z-index: 20;
 
   &.top-left {
-     top:0;
-     left: 0;
+    top: 0;
+    left: 0;
 
     &::before {
       left: 0;
       height: 100%;
-      content: '';
+      content: "";
       display: block;
       width: var(--width);
       position: absolute;
@@ -26,7 +28,7 @@
     &::after {
       top: 0;
       width: 100%;
-      content: '';
+      content: "";
       display: block;
       height: var(--width);
       position: absolute;
@@ -36,13 +38,13 @@
   }
 
   &.top-right {
-    top:0;
+    top: 0;
     right: 0;
 
     &::before {
       right: 0;
       height: 100%;
-      content: '';
+      content: "";
       display: block;
       width: var(--width);
       position: absolute;
@@ -53,7 +55,7 @@
     &::after {
       top: 0;
       width: 100%;
-      content: '';
+      content: "";
       display: block;
       height: var(--width);
       position: absolute;
@@ -69,7 +71,7 @@
     &::before {
       bottom: 0;
       height: 100%;
-      content: '';
+      content: "";
       display: block;
       width: var(--width);
       position: absolute;
@@ -80,7 +82,7 @@
     &::after {
       bottom: 0;
       width: 100%;
-      content: '';
+      content: "";
       display: block;
       height: var(--width);
       position: absolute;
@@ -96,7 +98,7 @@
     &::before {
       right: 0;
       height: 100%;
-      content: '';
+      content: "";
       display: block;
       width: var(--width);
       position: absolute;
@@ -107,7 +109,7 @@
     &::after {
       bottom: 0;
       width: 100%;
-      content: '';
+      content: "";
       display: block;
       height: var(--width);
       position: absolute;

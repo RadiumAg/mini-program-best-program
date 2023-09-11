@@ -1,1 +1,1 @@
-<image-copper view-class="imageCopper" src="{{path}}"></image-copper>
+<image-copper view-class="image-copper" src="{{path}}"></image-copper>

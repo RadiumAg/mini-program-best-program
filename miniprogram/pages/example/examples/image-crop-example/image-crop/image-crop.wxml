@@ -1,12 +1,12 @@
 <view
-  class="imageCrop view-class"
+  class="image-crop view-class"
   catch:touchmove="handleTouchMove"
   catch:touchend="handleTouchEnd"
 >
   <view class="mask">
-    <mask-item class="leftMask" crop="{{crop}}" position="top"></mask-item>
+    <mask-item crop="{{crop}}" position="top"></mask-item>
 
-    <view class="cropArea">
+    <view class="crop-area">
       <mask-item crop="{{crop}}" position="left"></mask-item>
       <crop width="{{crop.width}}" height="{{crop.height}}">
         <controller

@@ -162,7 +162,7 @@ Component({
     this.data._controllerArray.forEach((_) => _.update());
 
     this.createSelectorQuery()
-      .select(".imageCrop")
+      .select(".image-crop")
       .boundingClientRect()
       .exec(([container]) => {
         if (container === null) return;

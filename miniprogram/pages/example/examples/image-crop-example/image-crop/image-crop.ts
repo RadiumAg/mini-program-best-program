@@ -1,9 +1,11 @@
 /** @format */
 
 import {props} from "./props";
+import {getPxToRpx} from "./utils/page";
+
 import type {ActiveController, Container, Crop} from "./type";
 import type {ControllerTouchStart, UpdateEvent} from "./controller/type";
-import {getPxToRpx} from "./utils/page";
+import type {ImageControllerInitEvent} from "./image-controller/type";
 
 Component({
   externalClasses: ["view-class"],
@@ -26,6 +28,21 @@ Component({
   },
 
   methods: {
+    handleImagecontrollerInit(
+      event: WechatMiniprogram.CustomEvent<ImageControllerInitEvent>
+    ) {
+      const {x, y, width, height} = event.detail;
+
+      this.setData({
+        crop: {
+          x,
+          y,
+          width,
+          height,
+        },
+      });
+    },
+
     handleControllerUpdate(event: WechatMiniprogram.CustomEvent<UpdateEvent>) {
       if (this.data._isUpdate) return;
 

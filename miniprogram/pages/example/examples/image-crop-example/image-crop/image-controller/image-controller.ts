@@ -64,7 +64,7 @@ Component({
   methods: {
     /**
      * 设置图片宽高
-     * @returns
+     *
      */
     async _setImageSize() {
       let {width: imageWidth, height: imageHeight} = await wx.getImageInfo({
@@ -96,6 +96,7 @@ Component({
     },
 
     /**
+     *
      * 设置图片位置
      */
     async _setPosition() {

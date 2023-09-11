@@ -51,7 +51,6 @@ Component({
       } = event;
 
       [x, y, width, height] = this._checkContainerBoundary(x, y, width, height);
-
       this.data._isUpdate = true;
 
       this.setData(

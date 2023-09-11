@@ -1,9 +1,9 @@
+/** @format */
+
 const props = {
-    src: {
-        type: String,
-        value: ''
-    }
-}
+  src: {
+    type: String,
+  },
+};
 
-
-export { props }
+export {props};

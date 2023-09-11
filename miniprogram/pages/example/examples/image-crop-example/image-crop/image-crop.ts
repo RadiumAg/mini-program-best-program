@@ -1,7 +1,6 @@
 /** @format */
 
 import {props} from "./props";
-
 import type {ActiveController, Container, Crop} from "./type";
 import type {ControllerTouchStart, UpdateEvent} from "./controller/type";
 import {getPxToRpx} from "./utils/page";

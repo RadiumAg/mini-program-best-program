@@ -137,10 +137,7 @@ Component({
       const crop = this.data.crop as Crop;
       const {width, height} = this.data.size;
       const position = this.data.type as Position;
-      const typeClass = position
-        .split("-")
-        .map((_, index) => (index === 1 ? _[0].toUpperCase() + _.slice(1) : _))
-        .join("");
+      const typeClass = position;
 
       switch (position) {
         case "top-left": {
@@ -212,7 +209,6 @@ Component({
     async attached() {
       const {screenWidth} = await wx.getSystemInfo();
       this.data._pxToRpx = 750 / screenWidth;
-      console.log(this.data._pxToRpx);
     },
   },
 

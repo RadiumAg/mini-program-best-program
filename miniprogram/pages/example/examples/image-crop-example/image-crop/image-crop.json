@@ -3,7 +3,8 @@
   "usingComponents": {
     "crop": "./crop/crop",
     "mask-item": "./mask-item/mask-item",
-    "controller" : "./controller/controller",
-    "fill-mask-item": "./fill-mask-item/fill-mask-item"
+    "controller": "./controller/controller",
+    "fill-mask-item": "./fill-mask-item/fill-mask-item",
+    "image-controller": "./image-controller/image-controller"
   }
 }

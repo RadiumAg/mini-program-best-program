@@ -50,4 +50,6 @@
 
     <fill-mask-item></fill-mask-item>
   </view>
+
+  <image-controller></image-controller>
 </view>

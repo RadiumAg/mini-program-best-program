@@ -122,6 +122,36 @@ Component({
         height = this.data.container.height - y;
       }
 
+      if (width < bottomLeftControllerSize.width * 2) {
+        if (
+          this.data._activeController?.type === "top-right" ||
+          this.data._activeController?.type === "bottom-right"
+        ) {
+          width = bottomLeftControllerSize.width * 2;
+        } else {
+          width = bottomLeftControllerSize.width * 2;
+          x =
+            bottomRightControllerPosition.x +
+            bottomRightControllerSize.width -
+            width;
+        }
+      }
+
+      if (height < bottomLeftControllerSize.height * 2) {
+        if (
+          this.data._activeController?.type === "bottom-left" ||
+          this.data._activeController?.type === "bottom-right"
+        ) {
+          height = bottomLeftControllerSize.height * 2;
+        } else {
+          height = bottomLeftControllerSize.height * 2;
+          y =
+            bottomRightControllerPosition.y +
+            bottomRightControllerSize.height -
+            height;
+        }
+      }
+
       return [x, y, width, height];
     },
   },

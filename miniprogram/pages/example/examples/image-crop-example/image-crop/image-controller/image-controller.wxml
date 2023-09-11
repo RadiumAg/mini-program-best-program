@@ -1,1 +1,1 @@
-<image class="image-controller" src="{{src}}" mode="widthFix" />
+<image class="image-controller" src="{{src}}" style="{{style}}" />

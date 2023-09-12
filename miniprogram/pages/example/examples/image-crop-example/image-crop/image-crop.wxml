@@ -1,9 +1,5 @@
-<view
-  class="image-crop view-class"
-  catch:touchmove="handleTouchMove"
-  catch:touchend="handleTouchEnd"
->
-  <view class="mask">
+<view class="image-crop view-class">
+  <view class="mask" bind:touchmove="handleTouchMove" bind:touchend="handleTouchEnd">
     <mask-item crop="{{crop}}" position="top"></mask-item>
 
     <view class="crop-area">

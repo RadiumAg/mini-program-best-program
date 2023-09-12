@@ -133,7 +133,13 @@ Component({
       });
     },
 
-    async touchStart() {},
+    handleTouchStart() {
+      console.log("start");
+      this.data._oldSize = {...this.data.size};
+      this.data._oldPosition = {...this.data.position};
+    },
+
+    touchMove() {},
   },
 
   lifetimes: {

@@ -21,6 +21,7 @@ Component({
       height: 66,
     },
     typeClass: "",
+
     _oldPosition: {
       x: 0,
       y: 0,
@@ -60,6 +61,7 @@ Component({
       const position = this.data.type as Position;
       const {x: oldClientX, y: oldClientY} = this.data._oldClient;
       const [{clientX, clientY}] = event.changedTouches;
+
       let newX = 0;
       let newY = 0;
       let newHeight = 0;

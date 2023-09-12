@@ -1,5 +1,7 @@
+/** @format */
+
 Component({
   data: {},
   properties: {},
-  methods: {}
-})
+  methods: {},
+});

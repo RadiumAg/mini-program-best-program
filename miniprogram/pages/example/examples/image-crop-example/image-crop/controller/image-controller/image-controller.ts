@@ -7,7 +7,7 @@ import type {ImageController, ImageControllerInitEvent} from "./type";
 
 Component({
   options: {
-    pureDataPattern: /^_/, // 指定所有 _ 开头的数据字段为纯数据字段
+    pureDataPattern: /^_/,
   },
 
   properties: props,
@@ -16,12 +16,23 @@ Component({
     position: {
       x: 0,
       y: 0,
+      transform: "",
     },
     size: {
       width: 0,
       height: 0,
     },
     style: "",
+
+    _oldSize: {
+      width: 0,
+      height: 0,
+    },
+    _oldPosition: {
+      x: 0,
+      y: 0,
+      transform: "",
+    },
     _style: {},
     _pxToRpx: 0,
   },
@@ -121,6 +132,8 @@ Component({
         },
       });
     },
+
+    async touchStart() {},
   },
 
   lifetimes: {

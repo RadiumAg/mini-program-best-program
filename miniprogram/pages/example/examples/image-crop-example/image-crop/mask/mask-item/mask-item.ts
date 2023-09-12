@@ -1,19 +1,20 @@
 /** @format */
 
-import {Crop} from "../type";
 import {props} from "./props";
 import type {MaskItemPosition} from "./type";
+import type {Crop} from "../../crop/type";
 
 Component({
   options: {
     pureDataPattern: /^_/, // 指定所有 _ 开头的数据字段为纯数据字段
   },
 
+  properties: props,
+
   behaviors: ["wx://component-export"],
   /**
    * 组件的属性列表
    */
-  properties: props,
 
   /**
    * 组件的初始数据

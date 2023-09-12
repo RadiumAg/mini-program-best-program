@@ -1,1 +1,1 @@
-<image class="image-controller" src="{{src}}" style="{{style}}" />
+<image class="image-controller" src="{{src}}" style="{{style}}" bind:touchstart="touchStart" />

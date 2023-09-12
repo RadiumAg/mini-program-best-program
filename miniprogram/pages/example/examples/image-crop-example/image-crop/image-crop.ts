@@ -3,7 +3,7 @@
 import {props} from "./props";
 import {getPxToRpx} from "./utils/page";
 
-import type {Container, Crop} from "./type";
+import type {Container} from "./type";
 import type {
   Controller,
   ControllerTouchStart,
@@ -13,6 +13,7 @@ import type {
   ImageController,
   ImageControllerInitEvent,
 } from "./controller/image-controller/type";
+import type {Crop} from "./crop/type";
 
 Component({
   options: {

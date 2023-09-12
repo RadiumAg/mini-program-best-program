@@ -3,7 +3,7 @@
 import {props} from "./prop";
 
 Component({
-  data: {},
   properties: props,
+  data: {},
   methods: {},
 });

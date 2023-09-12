@@ -1,12 +1,5 @@
 /** @format */
 
-type Crop = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
 type Container = {
   top: number;
   left: number;
@@ -15,4 +8,4 @@ type Container = {
   height: number;
 };
 
-export type {Crop, Container};
+export type {Container};

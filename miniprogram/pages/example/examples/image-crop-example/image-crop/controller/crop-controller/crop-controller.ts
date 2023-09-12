@@ -1,14 +1,15 @@
 /** @format */
 import {getPxToRpx} from "../../utils/page";
 import {props} from "./prop";
-import {ControllerTouchStart, Position, UpdateEvent} from "./type";
-
-import type {Crop} from "../../type";
+import type {ControllerTouchStart, Position, UpdateEvent} from "./type";
+import type {Crop} from "../../crop/type";
 
 Component({
   options: {
-    pureDataPattern: /^_/, // 指定所有 _ 开头的数据字段为纯数据字段
+    pureDataPattern: /^_/,
   },
+
+  properties: props,
 
   data: {
     position: {
@@ -32,8 +33,6 @@ Component({
     _pxToRpx: 0,
   },
   behaviors: ["wx://component-export"],
-
-  properties: props,
 
   observers: {},
 

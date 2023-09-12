@@ -6,4 +6,9 @@ type ImageControllerInitEvent = {
   height: number;
 };
 
-export type {ImageControllerInitEvent};
+type ImageController = {
+  getPosition: () => {x: number; y: number};
+  getSize: () => {width: number; height: number};
+};
+
+export type {ImageControllerInitEvent, ImageController};

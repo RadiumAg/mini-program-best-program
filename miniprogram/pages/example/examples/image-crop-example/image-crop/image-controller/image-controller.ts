@@ -3,9 +3,13 @@
 import {props} from "./props";
 import {getPxToRpx} from "../utils/page";
 import type {Container} from "../type";
-import type {ImageControllerInitEvent} from "./type";
+import type {ImageController, ImageControllerInitEvent} from "./type";
 
 Component({
+  options: {
+    pureDataPattern: /^_/, // 指定所有 _ 开头的数据字段为纯数据字段
+  },
+
   data: {
     position: {
       x: 0,
@@ -19,6 +23,8 @@ Component({
     _style: {},
     _pxToRpx: 0,
   },
+
+  behaviors: ["wx://component-export"],
 
   observers: {
     "size.**"(size: typeof this.data.size) {
@@ -120,5 +126,17 @@ Component({
     async attached() {
       this.data._pxToRpx = await getPxToRpx();
     },
+  },
+
+  export() {
+    return {
+      getPosition: () => {
+        return {...this.data.position};
+      },
+
+      getSize: () => {
+        return {...this.data.size};
+      },
+    } as ImageController;
   },
 });

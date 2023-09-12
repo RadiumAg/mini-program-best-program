@@ -13,4 +13,12 @@ type ControllerTouchStart = {
   type: Position;
 };
 
-export type {Position, UpdateEvent, ControllerTouchStart};
+type Controller = {
+  type: Position;
+  update: () => Promise<void>;
+  getPosition: () => {x: number; y: number};
+  getSize: () => {width: number; height: number};
+  touchMove: (event: WechatMiniprogram.TouchEvent) => void;
+};
+
+export type {Position, UpdateEvent, Controller, ControllerTouchStart};

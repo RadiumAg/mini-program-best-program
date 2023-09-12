@@ -52,6 +52,7 @@
   </view>
 
   <image-controller
+    class="image-controller"
     bind:imageControllerInit="handleImagecontrollerInit"
     src="{{src}}"
     container="{{container}}"

@@ -1,9 +1,9 @@
 /** @format */
-import {getPxToRpx} from "../utils/page";
+import {getPxToRpx} from "../../utils/page";
 import {props} from "./prop";
 import {ControllerTouchStart, Position, UpdateEvent} from "./type";
 
-import type {Crop} from "../type";
+import type {Crop} from "../../type";
 
 Component({
   options: {

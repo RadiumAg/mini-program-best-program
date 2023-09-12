@@ -2,9 +2,9 @@
   "component": true,
   "usingComponents": {
     "crop": "./crop/crop",
-    "mask-item": "./mask-item/mask-item",
-    "controller": "./controller/controller",
-    "fill-mask-item": "./fill-mask-item/fill-mask-item",
-    "image-controller": "./image-controller/image-controller"
-  }
+    "mask-item": "./mask/mask-item/mask-item",
+    "fill-mask-item": "./mask/fill-mask-item/fill-mask-item",
+    "crop-controller": "./controller/crop-controller/crop-controller",
+    "image-controller": "./controller/image-controller/image-controller"
+    }
 }

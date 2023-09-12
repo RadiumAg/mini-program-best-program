@@ -8,11 +8,11 @@ import type {
   Controller,
   ControllerTouchStart,
   UpdateEvent,
-} from "./controller/type";
+} from "./controller/crop-controller/type";
 import type {
   ImageController,
   ImageControllerInitEvent,
-} from "./image-controller/type";
+} from "./controller/image-controller/type";
 
 Component({
   options: {

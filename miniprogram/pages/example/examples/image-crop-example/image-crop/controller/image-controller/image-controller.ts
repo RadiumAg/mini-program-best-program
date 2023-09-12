@@ -1,14 +1,16 @@
 /** @format */
 
 import {props} from "./props";
-import {getPxToRpx} from "../utils/page";
-import type {Container} from "../type";
+import {getPxToRpx} from "../../utils/page";
+import type {Container} from "../../type";
 import type {ImageController, ImageControllerInitEvent} from "./type";
 
 Component({
   options: {
     pureDataPattern: /^_/, // 指定所有 _ 开头的数据字段为纯数据字段
   },
+
+  properties: props,
 
   data: {
     position: {
@@ -65,8 +67,6 @@ Component({
     },
   },
 
-  properties: props,
-
   methods: {
     /**
      * 设置图片宽高
@@ -88,8 +88,9 @@ Component({
       if (imageProportion >= containerProportion) {
         imageWidth = containerWidth;
         imageHeight = imageWidth / imageProportion;
+        imageHeight -= this.data.space;
       } else {
-        imageHeight = containerHeight;
+        imageHeight = containerHeight - this.data.space;
         imageWidth = imageHeight * imageProportion;
       }
 

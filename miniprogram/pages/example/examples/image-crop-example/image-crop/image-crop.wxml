@@ -9,41 +9,41 @@
     <view class="crop-area">
       <mask-item crop="{{crop}}" position="left"></mask-item>
       <crop width="{{crop.width}}" height="{{crop.height}}">
-        <controller
+        <crop-controller
           type="top-left"
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
           bind:controllerTouchStart="handeControllerTouchStart"
           bind:update="handleControllerUpdate"
-        ></controller>
+        ></crop-controller>
 
-        <controller
+        <crop-controller
           type="top-right"
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
           bind:controllerTouchStart="handeControllerTouchStart"
           bind:update="handleControllerUpdate"
-        ></controller>
+        ></crop-controller>
 
-        <controller
+        <crop-controller
           type="bottom-right"
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
           bind:controllerTouchStart="handeControllerTouchStart"
           bind:update="handleControllerUpdate"
-        ></controller>
+        ></crop-controller>
 
-        <controller
+        <crop-controller
           type="bottom-left"
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
           bind:controllerTouchStart="handeControllerTouchStart"
           bind:update="handleControllerUpdate"
-        ></controller>
+        ></crop-controller>
       </crop>
       <fill-mask-item></fill-mask-item>
     </view>

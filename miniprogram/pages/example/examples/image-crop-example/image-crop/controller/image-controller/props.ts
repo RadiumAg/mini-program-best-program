@@ -1,18 +1,11 @@
 /** @format */
 
-import type {Container, Crop} from "../type";
+import type {Container} from "../../type";
 
 const props = {
-  crop: {
-    type: Object,
-    value: {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0,
-    } as Crop,
+  src: {
+    type: String,
   },
-
   container: {
     type: Object,
     value: {
@@ -23,9 +16,9 @@ const props = {
       height: 0,
     } as Container,
   },
-
-  type: {
-    type: String,
+  space: {
+    type: Number,
+    value: 50,
   },
 };
 

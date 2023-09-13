@@ -157,11 +157,13 @@ Component({
       const {size, position} = this.data;
       const scale = 1 - size.scale;
 
-      const width = size.width * size.scale;
-      const height = size.height * size.scale;
-
-      const x = position.x + size.width * (scale / 2);
-      const y = position.y + size.height * (scale / 2);
+      const {x, y, width, height} = this.transformToActualPositionAndSize(
+        position.x,
+        position.y,
+        size.width,
+        size.height,
+        scale
+      );
 
       return {
         x,
@@ -171,9 +173,31 @@ Component({
       };
     },
 
-    checkBoundary(x: number, y: number) {
+    transformToActualPositionAndSize(
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      scale: number
+    ) {
+      const scaleIncrease = 1 - scale;
+
+      width = width * scale;
+      height = height * scale;
+
+      x = x + width * (scaleIncrease / 2);
+      y = y + height * (scaleIncrease / 2);
+
+      return {
+        x,
+        y,
+        width,
+        height,
+      };
+    },
+
+    checkBoundary(x: number, y: number, size: typeof this.data.size) {
       const crop = this.data.crop as Crop;
-      const {size} = this.data;
       const scale = 1 - size.scale;
 
       if (x + size.width * (scale / 2) > crop.x) {
@@ -219,7 +243,7 @@ Component({
         let newX = _oldPosition.x + xDistance;
         let newY = _oldPosition.y + yDistance;
 
-        [newX, newY] = this.checkBoundary(newX, newY);
+        [newX, newY] = this.checkBoundary(newX, newY, this.data.size);
 
         this.setData(
           {
@@ -231,7 +255,8 @@ Component({
           }
         );
       } else if (event.touches.length === 2) {
-        const {scale} = this.data._oldSize;
+        const {scale, width, height} = this.data._oldSize;
+        const {x, y} = this.data._oldPosition;
         const [clientFirst, clientSecond] = event.touches;
 
         const oldProportion = Math.sqrt(
@@ -246,8 +271,16 @@ Component({
 
         let newScale = scale + (newProportion / oldProportion - 1);
 
-        if (newScale > this.data.maxScale) {
-          newScale = this.data.maxScale;
+        const actualPositionAndSize = this.transformToActualPositionAndSize(
+          x,
+          y,
+          width,
+          height,
+          scale
+        );
+
+        if (newX !== x || newY !== y) {
+          newScale = (newWidth * newHeight) / (width * height);
         }
 
         this.setData(

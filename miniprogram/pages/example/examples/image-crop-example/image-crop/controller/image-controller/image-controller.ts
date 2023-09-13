@@ -20,12 +20,14 @@ Component({
       transform: "",
     },
     size: {
+      scale: 1.2,
       width: 0,
       height: 0,
     },
     style: "",
 
     _oldSize: {
+      scale: 1,
       width: 0,
       height: 0,
     },
@@ -38,7 +40,6 @@ Component({
     _oldPosition: {
       x: 0,
       y: 0,
-      transform: "",
     },
     _style: {},
     _pxToRpx: 0,
@@ -53,13 +54,13 @@ Component({
       this.setData({
         ["_style.width"]: `${size.width}rpx`,
         ["_style.height"]: `${size.height}rpx`,
+        ["_style.transform"]: `scale(${size.scale})`,
       });
     },
     "position.**"(position: typeof this.data.position) {
       this.setData({
         ["_style.top"]: `${position.y}rpx`,
         ["_style.left"]: `${position.x}rpx`,
-        ["_style.transform"]: `transform:${position.transform}`,
       });
     },
     "_style.**"() {
@@ -116,10 +117,8 @@ Component({
       }
 
       this.setData({
-        size: {
-          width: imageWidth,
-          height: imageHeight,
-        },
+        "size.width": imageWidth,
+        "size.height": imageHeight,
       });
     },
 
@@ -136,10 +135,8 @@ Component({
       const y = containerHeight / 2 - height / 2;
 
       this.setData({
-        position: {
-          x,
-          y,
-        },
+        "position.x": x,
+        "position.y": y,
       });
     },
 
@@ -156,33 +153,52 @@ Component({
       });
     },
 
+    checkBoundary(x: number, y: number) {
+      const crop = this.data.crop as Crop;
+      const {size} = this.data;
+      const scale = 1 - size.scale;
+
+      if (x + x * scale > crop.x) {
+        x = crop.x + x * scale;
+      } else if (
+        x + size.width * scale + size.width - size.width * scale <
+        crop.x + crop.width
+      ) {
+        x =
+          crop.x +
+          crop.width -
+          ((size.width * Math.abs(scale)) / 2 + size.width);
+      }
+
+      // if (y * size.scale > crop.y * size.scale) {
+      //   y = crop.y;
+      // } else if (
+      //   (y + size.height) * size.scale <
+      //   (crop.y + crop.height) * size.scale
+      // ) {
+      //   y = crop.y + crop.height - size.height;
+      // }
+
+      return [x, y];
+    },
+
     touchMove(event: WechatMiniprogram.TouchEvent) {
       if (this.data._isUpdate) return;
 
-      const [clientFirst, clientSecond] = this.data._oldClientArray;
-      const crop = this.data.crop as Crop;
+      const [oldClientFirst, oldClientSecond] = this.data._oldClientArray;
+      const {_oldPosition, _pxToRpx} = this.data;
 
       this.data._isUpdate = true;
 
       if (event.touches.length === 1) {
         const [touch] = event.touches;
-        const xDistance = (touch.clientX - clientFirst.x) * this.data._pxToRpx;
-        const yDistance = (touch.clientY - clientFirst.y) * this.data._pxToRpx;
+        const xDistance = (touch.clientX - oldClientFirst.x) * _pxToRpx;
+        const yDistance = (touch.clientY - oldClientFirst.y) * _pxToRpx;
 
-        let newX = this.data._oldPosition.x + xDistance;
-        let newY = this.data._oldPosition.y + yDistance;
+        let newX = _oldPosition.x + xDistance;
+        let newY = _oldPosition.y + yDistance;
 
-        if (newX > crop.x) {
-          newX = crop.x;
-        } else if (newX + this.data.size.width < crop.x + crop.width) {
-          newX = crop.x + crop.width - this.data.size.width;
-        }
-
-        if (newY > crop.y) {
-          newY = crop.y;
-        } else if (newY + this.data.size.height < crop.y + crop.height) {
-          newY = crop.y + crop.height - this.data.size.height;
-        }
+        [newX, newY] = this.checkBoundary(newX, newY);
 
         this.setData(
           {
@@ -194,6 +210,28 @@ Component({
           }
         );
       } else if (event.touches.length === 2) {
+        const [clientFirst, clientSecond] = event.touches;
+
+        const oldProportion = Math.sqrt(
+          (oldClientFirst.x - oldClientSecond.x) ** 2 +
+            (oldClientFirst.y - oldClientSecond.y) ** 2
+        );
+
+        const newProportion = Math.sqrt(
+          (clientFirst.clientX - clientSecond.clientX) ** 2 +
+            (clientFirst.clientY - clientSecond.clientY) ** 2
+        );
+
+        const newScale = (this.data.size.scale = newProportion / oldProportion);
+
+        this.setData(
+          {
+            "size.scale": newScale,
+          },
+          () => {
+            this.data._isUpdate = false;
+          }
+        );
       }
     },
 

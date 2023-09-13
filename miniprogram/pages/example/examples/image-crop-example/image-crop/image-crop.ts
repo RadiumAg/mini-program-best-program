@@ -224,11 +224,12 @@ Component({
       const bottomLeftControllerSize = bottomLeftController.getSize();
       const bottomLeftControllerPosition = bottomLeftController.getPosition();
 
-      const {x: imageControllerX, y: imageControllerY} =
-        imageController.getPosition();
-
-      const {width: imageControllerWidth, height: imageControllerHeight} =
-        imageController.getSize();
+      const {
+        x: imageControllerX,
+        y: imageControllerY,
+        width: imageControllerWidth,
+        height: imageControllerHeight,
+      } = imageController.getActualPositionAndSize();
 
       if (x < imageControllerX) {
         x = imageControllerX;

@@ -3,8 +3,8 @@
 import {props} from "./props";
 import {getPxToRpx} from "../../utils/page";
 import type {Container} from "../../type";
-import type {ImageController, ImageControllerInitEvent} from "./type";
 import type {Crop} from "../../crop/type";
+import type {ImageController, ImageControllerInitEvent} from "./type";
 
 Component({
   options: {
@@ -20,7 +20,7 @@ Component({
       transform: "",
     },
     size: {
-      scale: 1.2,
+      scale: 1,
       width: 0,
       height: 0,
     },
@@ -153,15 +153,33 @@ Component({
       });
     },
 
+    getActualPositionAndSize() {
+      const {size, position} = this.data;
+      const scale = 1 - size.scale;
+
+      const width = size.width * size.scale;
+      const height = size.height * size.scale;
+
+      const x = position.x + size.width * (scale / 2);
+      const y = position.y + size.height * (scale / 2);
+
+      return {
+        x,
+        y,
+        width,
+        height,
+      };
+    },
+
     checkBoundary(x: number, y: number) {
       const crop = this.data.crop as Crop;
       const {size} = this.data;
       const scale = 1 - size.scale;
 
-      if (x + x * scale > crop.x) {
-        x = crop.x + x * scale;
+      if (x + size.width * (scale / 2) > crop.x) {
+        x = crop.x - size.width * (scale / 2);
       } else if (
-        x + size.width * scale + size.width - size.width * scale <
+        x + size.width * (scale / 2) + size.width - size.width * scale <
         crop.x + crop.width
       ) {
         x =
@@ -170,14 +188,17 @@ Component({
           ((size.width * Math.abs(scale)) / 2 + size.width);
       }
 
-      // if (y * size.scale > crop.y * size.scale) {
-      //   y = crop.y;
-      // } else if (
-      //   (y + size.height) * size.scale <
-      //   (crop.y + crop.height) * size.scale
-      // ) {
-      //   y = crop.y + crop.height - size.height;
-      // }
+      if (y + size.height * (scale / 2) > crop.y) {
+        y = crop.y - size.height * (scale / 2);
+      } else if (
+        y + size.height * (scale / 2) + size.height - size.height * scale <
+        crop.y + crop.height
+      ) {
+        y =
+          crop.y +
+          crop.height -
+          ((size.height * Math.abs(scale)) / 2 + size.height);
+      }
 
       return [x, y];
     },
@@ -210,6 +231,7 @@ Component({
           }
         );
       } else if (event.touches.length === 2) {
+        const {scale} = this.data._oldSize;
         const [clientFirst, clientSecond] = event.touches;
 
         const oldProportion = Math.sqrt(
@@ -222,7 +244,11 @@ Component({
             (clientFirst.clientY - clientSecond.clientY) ** 2
         );
 
-        const newScale = (this.data.size.scale = newProportion / oldProportion);
+        let newScale = scale + (newProportion / oldProportion - 1);
+
+        if (newScale > this.data.maxScale) {
+          newScale = this.data.maxScale;
+        }
 
         this.setData(
           {
@@ -257,6 +283,7 @@ Component({
       },
       update: this.update.bind(this),
       touchMove: this.touchMove.bind(this),
+      getActualPositionAndSize: this.getActualPositionAndSize.bind(this),
     } as ImageController;
   },
 });

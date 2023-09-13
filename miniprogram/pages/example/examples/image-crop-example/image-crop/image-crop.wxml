@@ -1,7 +1,6 @@
-<view class="image-crop view-class">
-  <view class="mask" bind:touchmove="handleTouchMove" bind:touchend="handleTouchEnd">
+<view class="image-crop view-class" bind:touchmove="handleTouchMove" bind:touchend="handleTouchEnd">
+  <view class="mask">
     <mask-item crop="{{crop}}" position="top"></mask-item>
-
     <view class="crop-area">
       <mask-item crop="{{crop}}" position="left"></mask-item>
       <crop width="{{crop.width}}" height="{{crop.height}}">
@@ -10,8 +9,8 @@
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
+          bind:move="handleCropControllerMove"
           bind:controllerTouchStart="handeControllerTouchStart"
-          bind:update="handleControllerUpdate"
         ></crop-controller>
 
         <crop-controller
@@ -19,8 +18,8 @@
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
+          bind:move="handleCropControllerMove"
           bind:controllerTouchStart="handeControllerTouchStart"
-          bind:update="handleControllerUpdate"
         ></crop-controller>
 
         <crop-controller
@@ -28,8 +27,8 @@
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
+          bind:move="handleCropControllerMove"
           bind:controllerTouchStart="handeControllerTouchStart"
-          bind:update="handleControllerUpdate"
         ></crop-controller>
 
         <crop-controller
@@ -37,8 +36,8 @@
           class="controller"
           crop="{{crop}}"
           container="{{container}}"
+          bind:move="handleCropControllerMove"
           bind:controllerTouchStart="handeControllerTouchStart"
-          bind:update="handleControllerUpdate"
         ></crop-controller>
       </crop>
       <fill-mask-item></fill-mask-item>
@@ -49,8 +48,10 @@
 
   <image-controller
     class="image-controller"
-    bind:imageControllerInit="handleImagecontrollerInit"
     src="{{src}}"
+    crop="{{crop}}"
     container="{{container}}"
+    bind:controllerTouchStart="handeControllerTouchStart"
+    bind:init="handleImagecontrollerInit"
   ></image-controller>
 </view>

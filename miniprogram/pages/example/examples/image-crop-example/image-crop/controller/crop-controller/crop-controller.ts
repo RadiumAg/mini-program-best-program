@@ -57,7 +57,7 @@ Component({
       } as ControllerTouchStart);
     },
 
-    _touchMove(event: WechatMiniprogram.TouchEvent) {
+    touchMove(event: WechatMiniprogram.TouchEvent) {
       const position = this.data.type as Position;
       const {x: oldClientX, y: oldClientY} = this.data._oldClient;
       const [{clientX, clientY}] = event.changedTouches;
@@ -125,7 +125,7 @@ Component({
         }
       }
 
-      this.triggerEvent("update", {
+      this.triggerEvent("move", {
         x: newX,
         y: newY,
         height: newHeight,
@@ -219,9 +219,10 @@ Component({
 
   export() {
     return {
-      update: this.updated.bind(this),
-      touchMove: this._touchMove.bind(this),
       type: this.data.type,
+
+      update: this.updated.bind(this),
+      touchMove: this.touchMove.bind(this),
       getPosition: () => {
         return {...this.data.position};
       },

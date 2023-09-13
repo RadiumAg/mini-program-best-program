@@ -14,6 +14,7 @@
     height: 100%;
     display: flex;
     position: absolute;
+    pointer-events: none;
     flex-direction: column;
   }
 }

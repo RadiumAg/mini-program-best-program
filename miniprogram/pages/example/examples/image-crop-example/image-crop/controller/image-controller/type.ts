@@ -7,6 +7,9 @@ type ImageControllerInitEvent = {
 };
 
 type ImageController = {
+  type: string;
+  update: () => void;
+  touchMove: () => void;
   getPosition: () => {x: number; y: number};
   getSize: () => {width: number; height: number};
 };

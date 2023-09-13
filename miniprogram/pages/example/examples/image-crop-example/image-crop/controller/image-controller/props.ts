@@ -1,5 +1,6 @@
 /** @format */
 
+import type {Crop} from "../../crop/type";
 import type {Container} from "../../type";
 
 const props = {
@@ -19,6 +20,15 @@ const props = {
   space: {
     type: Number,
     value: 50,
+  },
+  crop: {
+    type: Object,
+    value: {
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    } as Crop,
   },
 };
 

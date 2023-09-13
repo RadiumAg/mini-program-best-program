@@ -1,6 +1,6 @@
 /** @format */
 
-import {Crop} from "../type";
+import type {Crop} from "../../crop/type";
 
 const props = {
   crop: {

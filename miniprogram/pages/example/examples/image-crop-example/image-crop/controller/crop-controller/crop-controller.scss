@@ -2,13 +2,14 @@
 
 :host {
   --width: 10rpx;
+  pointer-events: auto;
 }
 
 .controller {
   width: 66rpx;
   height: 66rpx;
-  position: absolute;
   z-index: 20;
+  position: absolute;
 
   &.top-left {
     top: 0;

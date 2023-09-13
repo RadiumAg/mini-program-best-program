@@ -1,8 +1,13 @@
 /** @format */
 
-type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+type Position =
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "image-controller";
 
-type UpdateEvent = {
+type MoveEvent = {
   x: number;
   y: number;
   height: number;
@@ -21,4 +26,4 @@ type Controller = {
   touchMove: (event: WechatMiniprogram.TouchEvent) => void;
 };
 
-export type {Position, UpdateEvent, Controller, ControllerTouchStart};
+export type {Position, MoveEvent, Controller, ControllerTouchStart};

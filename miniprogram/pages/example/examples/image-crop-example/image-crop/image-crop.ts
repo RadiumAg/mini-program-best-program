@@ -7,7 +7,7 @@ import type {Container} from "./type";
 import type {
   Controller,
   ControllerTouchStart,
-  UpdateEvent,
+  MoveEvent,
 } from "./controller/crop-controller/type";
 import type {
   ImageController,
@@ -31,14 +31,13 @@ Component({
       height: 500,
       width: 500,
     } as Crop,
+    container: {} as Container,
 
     _pxToRpx: 0,
-    container: {} as Container,
     _isUpdate: false,
-    _controllerArray: [] as Controller[],
-    _activeController: null as Controller | null,
-
+    _cropControllerArray: [] as Controller[],
     _imageController: null as ImageController | null,
+    _activeController: null as Controller | ImageController | null,
   },
 
   methods: {
@@ -57,14 +56,14 @@ Component({
       });
     },
 
-    handleControllerUpdate(event: WechatMiniprogram.CustomEvent<UpdateEvent>) {
+    handleCropControllerMove(event: WechatMiniprogram.CustomEvent<MoveEvent>) {
       if (this.data._isUpdate) return;
 
       let {
         detail: {x, y, height, width},
       } = event;
 
-      [x, y, width, height] = this._checkBoundary(x, y, width, height);
+      [x, y, width, height] = this.checkBoundary(x, y, width, height);
 
       this.data._isUpdate = true;
 
@@ -78,7 +77,9 @@ Component({
           },
         },
         async () => {
-          for (const controller of this.data._controllerArray) {
+          for (const controller of this.data._cropControllerArray.filter(
+            (_) => _.type !== "image-controller"
+          )) {
             await controller.update();
           }
 
@@ -99,28 +100,43 @@ Component({
     handeControllerTouchStart(
       event: WechatMiniprogram.CustomEvent<ControllerTouchStart>
     ) {
+      const controllers = [
+        this.data._imageController,
+        ...this.data._cropControllerArray,
+      ];
       const {type} = event.detail;
-      const controllerArray = this.selectAllComponents(
-        ".controller"
-      ) as unknown as Controller[];
 
-      this.data._activeController = controllerArray.find(
-        (_) => _.type === type
-      )!;
+      this.data._activeController = controllers.find((_) => _.type === type)!;
     },
 
-    _checkContainerBoundary(
+    checkBoundary(x: number, y: number, width: number, height: number) {
+      const checkArray = [this.checkContainerBoundary, this.checkImageBoundary];
+
+      const checkResult = checkArray.reduce(
+        (pre, current) => {
+          return current.call(
+            this,
+            ...(pre as [number, number, number, number])
+          );
+        },
+        [x, y, width, height]
+      );
+
+      return checkResult;
+    },
+
+    checkContainerBoundary(
       x: number,
       y: number,
       width: number,
       height: number
     ) {
-      if (this.data._activeController === null) return [];
+      if (this.data._activeController === null) return [x, y, width, height];
 
-      const bottomLeftController = this.data._controllerArray.find(
+      const bottomLeftController = this.data._cropControllerArray.find(
         (_) => _.type === "bottom-left"
       )!;
-      const bottomRightController = this.data._controllerArray.find(
+      const bottomRightController = this.data._cropControllerArray.find(
         (_) => _.type === "bottom-right"
       )!;
 
@@ -190,13 +206,15 @@ Component({
       return [x, y, width, height];
     },
 
-    _checkImageBoundary(x: number, y: number, width: number, height: number) {
-      if (this.data._imageController === null) return [];
+    checkImageBoundary(x: number, y: number, width: number, height: number) {
+      const {_imageController: imageController} = this.data;
 
-      const bottomLeftController = this.data._controllerArray.find(
+      if (imageController === null) return [x, y, width, height];
+
+      const bottomLeftController = this.data._cropControllerArray.find(
         (_) => _.type === "bottom-left"
       )!;
-      const bottomRightController = this.data._controllerArray.find(
+      const bottomRightController = this.data._cropControllerArray.find(
         (_) => _.type === "bottom-right"
       )!;
 
@@ -207,10 +225,10 @@ Component({
       const bottomLeftControllerPosition = bottomLeftController.getPosition();
 
       const {x: imageControllerX, y: imageControllerY} =
-        this.data._imageController.getPosition();
+        imageController.getPosition();
 
       const {width: imageControllerWidth, height: imageControllerHeight} =
-        this.data._imageController.getSize();
+        imageController.getSize();
 
       if (x < imageControllerX) {
         x = imageControllerX;
@@ -230,35 +248,15 @@ Component({
 
       return [x, y, width, height];
     },
-
-    _checkBoundary(x: number, y: number, width: number, height: number) {
-      const checkArray = [
-        this._checkContainerBoundary,
-        this._checkImageBoundary,
-      ];
-
-      const checkResult = checkArray.reduce(
-        (pre, current) => {
-          return current.call(
-            this,
-            ...(pre as [number, number, number, number])
-          );
-        },
-        [x, y, width, height]
-      );
-
-      return checkResult;
-    },
   },
 
   async attached() {
     this.data._pxToRpx = await getPxToRpx();
 
-    this.data._controllerArray = this.selectAllComponents(
+    this.data._cropControllerArray = this.selectAllComponents(
       ".controller"
     ) as unknown as Controller[];
-
-    this.data._controllerArray.forEach((_) => _.update());
+    this.data._cropControllerArray.forEach((_) => _.update());
 
     this.data._imageController = this.selectComponent(
       ".image-controller"

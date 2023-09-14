@@ -155,14 +155,13 @@ Component({
 
     getActualPositionAndSize() {
       const {size, position} = this.data;
-      const scale = 1 - size.scale;
 
       const {x, y, width, height} = this.transformToActualPositionAndSize(
         position.x,
         position.y,
         size.width,
         size.height,
-        scale
+        size.scale
       );
 
       return {
@@ -206,10 +205,7 @@ Component({
         x + size.width * (scale / 2) + size.width - size.width * scale <
         crop.x + crop.width
       ) {
-        x =
-          crop.x +
-          crop.width -
-          ((size.width * Math.abs(scale)) / 2 + size.width);
+        x = crop.x + crop.width - (size.width - size.width * (scale / 2));
       }
 
       if (y + size.height * (scale / 2) > crop.y) {
@@ -226,6 +222,8 @@ Component({
 
       return [x, y];
     },
+
+    checkScale() {},
 
     touchMove(event: WechatMiniprogram.TouchEvent) {
       if (this.data._isUpdate) return;
@@ -255,8 +253,8 @@ Component({
           }
         );
       } else if (event.touches.length === 2) {
-        const {scale, width, height} = this.data._oldSize;
         const {x, y} = this.data._oldPosition;
+        const {scale} = this.data._oldSize;
         const [clientFirst, clientSecond] = event.touches;
 
         const oldProportion = Math.sqrt(
@@ -271,20 +269,21 @@ Component({
 
         let newScale = scale + (newProportion / oldProportion - 1);
 
-        const actualPositionAndSize = this.transformToActualPositionAndSize(
-          x,
-          y,
-          width,
-          height,
-          scale
-        );
+        const [newX, newY] = this.checkScale(x, y, {
+          ...this.data.size,
+          scale: newScale,
+        });
 
-        if (newX !== x || newY !== y) {
-          newScale = (newWidth * newHeight) / (width * height);
+        if (newScale > this.data.maxScale) {
+          newScale = this.data.maxScale;
+        } else if (newScale < this.data.minScale) {
+          newScale = this.data.minScale;
         }
 
         this.setData(
           {
+            "position.x": newX,
+            "position.y": newY,
             "size.scale": newScale,
           },
           () => {

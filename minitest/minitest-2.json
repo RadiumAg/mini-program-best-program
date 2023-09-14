@@ -1,0 +1,603 @@
+{
+  "meta": {
+    "caseId": "b8fc5ff6-b448-4ce9-8d38-1eed4c9a05a4",
+    "caseName": "minitest-2",
+    "remarks": "",
+    "version": "0.0.1",
+    "startTime": 1694676822518,
+    "endTime": 1694676836858,
+    "appid": "wx01eb5793126cc158",
+    "casePath": "",
+    "caseType": "normal",
+    "commonParams": [
+      {
+        "key": "1694676836893",
+        "name": "",
+        "value": ""
+      }
+    ]
+  },
+  "env": {
+    "wxapplibVersion": "3.0.1",
+    "devtoolsVersion": "1.06.2307260",
+    "openid": "o6zAJs_7miCtgNl0PU-x9PTwEjCY",
+    "entry": {
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "query": "",
+      "scene": 1001
+    },
+    "mock": [
+      "none"
+    ],
+    "maxWaitFor": 10000,
+    "ignoreSelectors": [],
+    "mockAPIs": [],
+    "cleanCache": [
+      "none"
+    ],
+    "groupTouch": true,
+    "replaySetting": {
+      "screenshot": "none"
+    },
+    "simulatorType": "wechat",
+    "device": "iPhone X",
+    "recordAPIs": []
+  },
+  "commands": [
+    {
+      "layer": "tool",
+      "commandType": "operate",
+      "command": "startRecord",
+      "waitfor": 0,
+      "timeStamp": 1694676822518,
+      "desc": ""
+    },
+    {
+      "tagName": "image",
+      "command": "touchmove",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 118,
+            "clientY": 196,
+            "force": 1,
+            "pageX": 118,
+            "pageY": 196,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1248,
+            "screenY": 525
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 118,
+            "clientY": 196,
+            "force": 1,
+            "pageX": 118,
+            "pageY": 196,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1248,
+            "screenY": 525
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 4695,
+      "waitfor": 4695,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "tap",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 118,
+            "clientY": 196,
+            "pageX": 118,
+            "pageY": 196,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1248,
+            "screenY": 525
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 4830,
+      "waitfor": 135,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "touchmove",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 181,
+            "clientY": 270,
+            "force": 1,
+            "pageX": 181,
+            "pageY": 270,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1185,
+            "screenY": 587
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 181,
+            "clientY": 270,
+            "force": 1,
+            "pageX": 181,
+            "pageY": 270,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1185,
+            "screenY": 587
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 7817,
+      "waitfor": 2987,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "tap",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 181,
+            "clientY": 270,
+            "pageX": 181,
+            "pageY": 270,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1185,
+            "screenY": 587
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 7843,
+      "waitfor": 26,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "touchmove",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 199,
+            "clientY": 344,
+            "force": 1,
+            "pageX": 199,
+            "pageY": 344,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1167,
+            "screenY": 673
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 199,
+            "clientY": 344,
+            "force": 1,
+            "pageX": 199,
+            "pageY": 344,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1167,
+            "screenY": 673
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 8444,
+      "waitfor": 601,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "tap",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 199,
+            "clientY": 344,
+            "pageX": 199,
+            "pageY": 344,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1167,
+            "screenY": 673
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 8445,
+      "waitfor": 1,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "touchmove",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 198,
+            "clientY": 397,
+            "force": 1,
+            "pageX": 198,
+            "pageY": 397,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1168,
+            "screenY": 726
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 198,
+            "clientY": 397,
+            "force": 1,
+            "pageX": 198,
+            "pageY": 397,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1168,
+            "screenY": 726
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 8946,
+      "waitfor": 501,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "tap",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 198,
+            "clientY": 397,
+            "pageX": 198,
+            "pageY": 397,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1168,
+            "screenY": 726
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 8947,
+      "waitfor": 1,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "touchmove",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 188,
+            "clientY": 452,
+            "force": 1,
+            "pageX": 188,
+            "pageY": 452,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1178,
+            "screenY": 781
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 188,
+            "clientY": 452,
+            "force": 1,
+            "pageX": 188,
+            "pageY": 452,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1178,
+            "screenY": 781
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 9556,
+      "waitfor": 609,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "tap",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 188,
+            "clientY": 452,
+            "pageX": 188,
+            "pageY": 452,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1178,
+            "screenY": 781
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 9557,
+      "waitfor": 1,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "view",
+      "command": "touchmove",
+      "target": "/image-copper/view/view/view/crop/view/crop-controller[1]/view",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 118,
+            "clientY": 179,
+            "force": 1,
+            "pageX": 118,
+            "pageY": 179,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1248,
+            "screenY": 508
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 118,
+            "clientY": 179,
+            "force": 1,
+            "pageX": 118,
+            "pageY": 179,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1248,
+            "screenY": 508
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/view/view/crop/view/crop-controller[1]/view"
+      ],
+      "timeStamp": 11345,
+      "waitfor": 1788,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "view",
+      "command": "tap",
+      "target": "/image-copper/view/view/view/crop/view/crop-controller[1]/view",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 118,
+            "clientY": 179,
+            "pageX": 118,
+            "pageY": 179,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1248,
+            "screenY": 508
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/view/view/crop/view/crop-controller[1]/view"
+      ],
+      "timeStamp": 11460,
+      "waitfor": 115,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "touchmove",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 137,
+            "clientY": -115,
+            "force": 1,
+            "pageX": 137,
+            "pageY": -115,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1229,
+            "screenY": 214
+          }
+        ],
+        "touches": [
+          {
+            "clientX": 137,
+            "clientY": -115,
+            "force": 1,
+            "pageX": 137,
+            "pageY": -115,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1229,
+            "screenY": 214
+          }
+        ]
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 12988,
+      "waitfor": 1528,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "tagName": "image",
+      "command": "tap",
+      "target": "/image-copper/view/image-controller/image",
+      "value": null,
+      "path": "pages/example/examples/image-crop-example/image-crop-example",
+      "text": "",
+      "eventData": {
+        "detail": {},
+        "changedTouches": [
+          {
+            "clientX": 137,
+            "clientY": -115,
+            "pageX": 137,
+            "pageY": -115,
+            "radiusX": 11.5,
+            "radiusY": 11.5,
+            "screenX": -1229,
+            "screenY": 214
+          }
+        ],
+        "touches": []
+      },
+      "targetCandidates": [
+        "/image-copper/view/image-controller/image"
+      ],
+      "timeStamp": 12990,
+      "waitfor": 2,
+      "desc": "",
+      "commandType": "operate",
+      "layer": "pageframe"
+    },
+    {
+      "timeStamp": 14339,
+      "waitfor": 1349,
+      "desc": "",
+      "layer": "tool",
+      "commandType": "operate",
+      "command": "stopRecord"
+    }
+  ]
+}

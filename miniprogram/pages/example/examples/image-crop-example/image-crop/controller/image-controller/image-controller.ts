@@ -197,33 +197,84 @@ Component({
 
     checkBoundary(x: number, y: number, size: typeof this.data.size) {
       const crop = this.data.crop as Crop;
-      const scale = 1 - size.scale;
+      const increaseScale = 1 - size.scale;
 
-      if (x + size.width * (scale / 2) > crop.x) {
-        x = crop.x - size.width * (scale / 2);
+      if (x + size.width * (increaseScale / 2) > crop.x) {
+        x = crop.x - size.width * (increaseScale / 2);
       } else if (
-        x + size.width * (scale / 2) + size.width - size.width * scale <
+        x +
+          size.width * (increaseScale / 2) +
+          size.width -
+          size.width * increaseScale <
         crop.x + crop.width
       ) {
-        x = crop.x + crop.width - (size.width - size.width * (scale / 2));
+        x =
+          crop.x + crop.width - (size.width - size.width * (increaseScale / 2));
       }
 
-      if (y + size.height * (scale / 2) > crop.y) {
-        y = crop.y - size.height * (scale / 2);
+      if (y + size.height * (increaseScale / 2) > crop.y) {
+        y = crop.y - size.height * (increaseScale / 2);
       } else if (
-        y + size.height * (scale / 2) + size.height - size.height * scale <
+        y + size.height * (increaseScale / 2) + size.height * size.scale <
         crop.y + crop.height
       ) {
         y =
           crop.y +
           crop.height -
-          ((size.height * Math.abs(scale)) / 2 + size.height);
+          ((size.height * increaseScale) / 2 + size.height);
       }
 
       return [x, y];
     },
 
-    checkScale() {},
+    checkScale(x: number, y: number, size: typeof this.data.size) {
+      let scale = size.scale;
+      let increaseScale = 1 - size.scale;
+      const crop = this.data.crop as Crop;
+
+      if (
+        x + size.width * (increaseScale / 2) + size.width * size.scale <
+          crop.x + crop.width &&
+        x + size.width * (increaseScale / 2) > crop.x
+      ) {
+        // 缩小过程中同时靠边
+        scale = crop.width / size.width;
+        increaseScale = 1 - scale;
+        x = crop.x - size.width * (increaseScale / 2);
+      } else if (x + size.width * (increaseScale / 2) > crop.x) {
+        // 缩小过程中左边靠边
+        x = crop.x - size.width * (increaseScale / 2);
+      } else if (
+        // 缩小过程中左边靠边
+        x + size.width * (increaseScale / 2) + size.width * size.scale <
+        crop.x + crop.width
+      ) {
+        x =
+          crop.x + crop.width - (size.width - size.width * (increaseScale / 2));
+      }
+
+      if (
+        y + size.height * (increaseScale / 2) > crop.y &&
+        y + size.height * (increaseScale / 2) + size.height * size.scale <
+          crop.y + crop.height
+      ) {
+        scale = crop.height / size.height;
+        increaseScale = 1 - scale;
+        x = crop.x - size.width * (increaseScale / 2);
+      } else if (y + size.height * (increaseScale / 2) > crop.y) {
+        y = crop.y - size.height * (increaseScale / 2);
+      } else if (
+        y + size.height * (increaseScale / 2) + size.height * size.scale <
+        crop.y + crop.height
+      ) {
+        y =
+          crop.y +
+          crop.height -
+          (size.height - size.height * (increaseScale / 2));
+      }
+
+      return [x, y, scale];
+    },
 
     touchMove(event: WechatMiniprogram.TouchEvent) {
       if (this.data._isUpdate) return;
@@ -240,6 +291,7 @@ Component({
 
         let newX = _oldPosition.x + xDistance;
         let newY = _oldPosition.y + yDistance;
+        console.log(this.data.size);
 
         [newX, newY] = this.checkBoundary(newX, newY, this.data.size);
 
@@ -268,17 +320,19 @@ Component({
         );
 
         let newScale = scale + (newProportion / oldProportion - 1);
-
-        const [newX, newY] = this.checkScale(x, y, {
-          ...this.data.size,
-          scale: newScale,
-        });
+        let newX = 0;
+        let newY = 0;
 
         if (newScale > this.data.maxScale) {
           newScale = this.data.maxScale;
         } else if (newScale < this.data.minScale) {
           newScale = this.data.minScale;
         }
+
+        [newX, newY, newScale] = this.checkScale(x, y, {
+          ...this.data.size,
+          scale: newScale,
+        });
 
         this.setData(
           {

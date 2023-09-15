@@ -10,7 +10,7 @@ const props = {
   },
   minScale: {
     type: Number,
-    value: 0.7,
+    value: 0.1,
   },
   src: {
     type: String,

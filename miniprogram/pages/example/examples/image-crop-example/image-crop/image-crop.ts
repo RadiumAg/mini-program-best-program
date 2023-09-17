@@ -236,7 +236,7 @@ Component({
         width =
           bottomRightControllerPosition.x + bottomRightControllerSize.width - x;
       } else if (x + width > imageControllerX + imageControllerWidth) {
-        width = imageControllerX + imageControllerWidth - x;
+        width = imageControllerWidth;
       }
 
       if (y < imageControllerY) {
@@ -244,7 +244,7 @@ Component({
         height =
           bottomLeftControllerPosition.y + bottomLeftControllerSize.height - y;
       } else if (y + height > imageControllerY + imageControllerHeight) {
-        height = imageControllerY + imageControllerHeight - y;
+        height = imageControllerY + imageControllerHeight;
       }
 
       return [x, y, width, height];

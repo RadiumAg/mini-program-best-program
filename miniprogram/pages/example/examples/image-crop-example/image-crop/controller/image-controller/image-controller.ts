@@ -223,7 +223,7 @@ Component({
         y =
           crop.y +
           crop.height -
-          (size.height + (size.height * increaseScale) / 2);
+          (size.height - (size.height * increaseScale) / 2);
       }
 
       return [x, y];

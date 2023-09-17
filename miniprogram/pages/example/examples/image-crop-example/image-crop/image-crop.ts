@@ -231,20 +231,27 @@ Component({
         height: imageControllerHeight,
       } = imageController.getActualPositionAndSize();
 
+      console.log(imageControllerX, imageControllerY, width, height);
+
       if (x < imageControllerX) {
         x = imageControllerX;
         width =
           bottomRightControllerPosition.x + bottomRightControllerSize.width - x;
+        console.log("image-crop 左靠边");
       } else if (x + width > imageControllerX + imageControllerWidth) {
-        width = imageControllerWidth;
+        console.log(x);
+        width = imageControllerWidth + imageControllerX - x;
+        console.log("image-crop 右靠边");
       }
 
       if (y < imageControllerY) {
         y = imageControllerY;
         height =
           bottomLeftControllerPosition.y + bottomLeftControllerSize.height - y;
+        console.log("image-crop 上靠边");
       } else if (y + height > imageControllerY + imageControllerHeight) {
-        height = imageControllerY + imageControllerHeight;
+        height = imageControllerY + imageControllerHeight - y;
+        console.log("image-crop 下靠边");
       }
 
       return [x, y, width, height];

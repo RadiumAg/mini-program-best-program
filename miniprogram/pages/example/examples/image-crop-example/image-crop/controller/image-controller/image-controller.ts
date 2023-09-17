@@ -184,7 +184,7 @@ Component({
       width = width * scale;
       height = height * scale;
 
-      x = x + width * (scaleIncrease / 2);
+      x = x + (width / 2) * (scaleIncrease / 2);
       y = y + height * (scaleIncrease / 2);
 
       return {
@@ -266,7 +266,7 @@ Component({
         console.log("上下靠边");
         scale = crop.height / size.height;
         increaseScale = 1 - scale;
-        x = crop.x - size.width * (increaseScale / 2);
+        y = crop.y - size.height * (increaseScale / 2);
       } else if (y + size.height * (increaseScale / 2) > crop.y) {
         console.log("上靠边");
         y = crop.y - size.height * (increaseScale / 2);

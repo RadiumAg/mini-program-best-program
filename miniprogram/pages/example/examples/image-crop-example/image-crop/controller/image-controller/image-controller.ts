@@ -202,25 +202,29 @@ Component({
       const yInscrease = (size.height - size.height * size.scale) / 2;
 
       if (x + xInscrease > crop.x) {
-        console.log("左触底");
         x = crop.x - xInscrease;
+
+        console.log("左触底");
       } else if (
         x + xInscrease + size.width * size.scale <
         crop.x + crop.width
       ) {
-        console.log("右触底");
         x = crop.x + crop.width - size.width * size.scale - xInscrease;
+
+        console.log("右触底");
       }
 
       if (y + yInscrease > crop.y) {
-        console.log("上触底");
         y = crop.y - yInscrease;
+
+        console.log("上触底");
       } else if (
         y + yInscrease + size.height * size.scale <
         crop.y + crop.height
       ) {
-        console.log("下触底");
         y = crop.y + crop.height - size.height * size.scale - yInscrease;
+
+        console.log("下触底");
       }
 
       return [x, y];
@@ -236,23 +240,27 @@ Component({
           crop.x + crop.width &&
         x + size.width * (increaseScale / 2) > crop.x
       ) {
-        console.log("左右同时靠边");
         // 缩小过程中同时靠边
         scale = crop.width / size.width;
         increaseScale = 1 - scale;
         x = crop.x - size.width * (increaseScale / 2);
+
+        console.log("左右同时靠边");
       } else if (x + size.width * (increaseScale / 2) > crop.x) {
-        console.log("左边靠边");
         // 缩小过程中左边靠边
+        console.log(increaseScale);
         x = crop.x - size.width * (increaseScale / 2);
+
+        console.log("左边靠边");
       } else if (
         // 缩小过程中右边靠边
         x + size.width * (increaseScale / 2) + size.width * size.scale <
         crop.x + crop.width
       ) {
-        console.log("右边靠边");
         x =
           crop.x + crop.width - (size.width - size.width * (increaseScale / 2));
+
+        console.log("右边靠边");
       }
 
       if (
@@ -260,22 +268,26 @@ Component({
         y + size.height * (increaseScale / 2) + size.height * scale <
           crop.y + crop.height
       ) {
-        console.log("上下靠边");
         scale = crop.height / size.height;
+        console.log(scale);
         increaseScale = 1 - scale;
         y = crop.y - size.height * (increaseScale / 2);
+
+        console.log("上下靠边");
       } else if (y + size.height * (increaseScale / 2) > crop.y) {
-        console.log("上靠边");
         y = crop.y - size.height * (increaseScale / 2);
+
+        console.log("上靠边");
       } else if (
         y + size.height * (increaseScale / 2) + size.height * scale <
         crop.y + crop.height
       ) {
-        console.log("下靠边");
         y =
           crop.y +
           crop.height -
           (size.height - size.height * (increaseScale / 2));
+
+        console.log("下靠边");
       }
 
       return [x, y, scale];

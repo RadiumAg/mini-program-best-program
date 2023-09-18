@@ -231,16 +231,13 @@ Component({
         height: imageControllerHeight,
       } = imageController.getActualPositionAndSize();
 
-      console.log(imageControllerX, imageControllerY, width, height);
-
       if (x < imageControllerX) {
         x = imageControllerX;
         width =
           bottomRightControllerPosition.x + bottomRightControllerSize.width - x;
         console.log("image-crop 左靠边");
       } else if (x + width > imageControllerX + imageControllerWidth) {
-        console.log(x);
-        width = imageControllerWidth + imageControllerX - x;
+        width = imageControllerX + imageControllerWidth - x;
         console.log("image-crop 右靠边");
       }
 

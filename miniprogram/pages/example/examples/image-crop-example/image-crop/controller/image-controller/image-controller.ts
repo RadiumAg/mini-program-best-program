@@ -179,13 +179,14 @@ Component({
       height: number,
       scale: number
     ) {
-      const scaleIncrease = 1 - scale;
+      const oldWidth = width;
+      const oldHeight = height;
 
-      width = width * scale;
-      height = height * scale;
+      width = oldWidth * scale;
+      height = oldHeight * scale;
 
-      x = x + (width / 2) * (scaleIncrease / 2);
-      y = y + height * (scaleIncrease / 2);
+      x = x + (oldWidth - width) / 2;
+      y = y + (oldHeight - height) / 2;
 
       return {
         x,
@@ -197,33 +198,29 @@ Component({
 
     checkBoundary(x: number, y: number, size: typeof this.data.size) {
       const crop = this.data.crop as Crop;
-      const increaseScale = 1 - size.scale;
+      const xInscrease = (size.width - size.width * size.scale) / 2;
+      const yInscrease = (size.height - size.height * size.scale) / 2;
 
-      if (x + size.width * (increaseScale / 2) > crop.x) {
-        x = crop.x - size.width * (increaseScale / 2);
+      if (x + xInscrease > crop.x) {
+        console.log("左触底");
+        x = crop.x - xInscrease;
       } else if (
-        x +
-          size.width * (increaseScale / 2) +
-          size.width -
-          size.width * increaseScale <
+        x + xInscrease + size.width * size.scale <
         crop.x + crop.width
       ) {
-        x =
-          crop.x + crop.width - (size.width - size.width * (increaseScale / 2));
+        console.log("右触底");
+        x = crop.x + crop.width - size.width * size.scale - xInscrease;
       }
 
-      if (y + size.height * (increaseScale / 2) > crop.y) {
+      if (y + yInscrease > crop.y) {
         console.log("上触底");
-        y = crop.y - size.height * (increaseScale / 2);
+        y = crop.y - yInscrease;
       } else if (
-        y + size.height * (increaseScale / 2) + size.height * size.scale <
+        y + yInscrease + size.height * size.scale <
         crop.y + crop.height
       ) {
         console.log("下触底");
-        y =
-          crop.y +
-          crop.height -
-          (size.height - (size.height * increaseScale) / 2);
+        y = crop.y + crop.height - size.height * size.scale - yInscrease;
       }
 
       return [x, y];
@@ -299,7 +296,6 @@ Component({
 
         let newX = _oldPosition.x + xDistance;
         let newY = _oldPosition.y + yDistance;
-        console.log(this.data.size);
 
         [newX, newY] = this.checkBoundary(newX, newY, this.data.size);
 

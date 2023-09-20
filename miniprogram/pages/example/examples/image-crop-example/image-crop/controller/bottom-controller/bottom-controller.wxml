@@ -1,3 +1,7 @@
 <view class="container">
-  <slot></slot>
+  <text>取消</text>
+
+  <text>旋转</text>
+
+  <text class="complete">完成</text>
 </view>

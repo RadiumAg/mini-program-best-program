@@ -109,6 +109,8 @@ Component({
       this.data._activeController = controllers.find((_) => _.type === type)!;
     },
 
+    handleComplete() {},
+
     checkBoundary(x: number, y: number, width: number, height: number) {
       const checkArray = [this.checkContainerBoundary, this.checkImageBoundary];
 
@@ -268,7 +270,7 @@ Component({
     ) as unknown as ImageController;
 
     this.createSelectorQuery()
-      .select(".image-crop")
+      .select(".view-area")
       .boundingClientRect()
       .exec(([container]) => {
         if (container === null) return;

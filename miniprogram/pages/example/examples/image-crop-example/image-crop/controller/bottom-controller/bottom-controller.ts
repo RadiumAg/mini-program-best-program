@@ -3,5 +3,17 @@
 Component({
   data: {},
   properties: {},
-  methods: {},
+  methods: {
+    handleCancel() {
+      this.triggerEvent("cancel");
+    },
+
+    handleRotate() {
+      this.triggerEvent("rotate");
+    },
+
+    handleComplete() {
+      this.triggerEvent("complete");
+    },
+  },
 });

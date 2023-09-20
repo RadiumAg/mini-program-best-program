@@ -5,6 +5,8 @@
     "mask-item": "./mask/mask-item/mask-item",
     "fill-mask-item": "./mask/fill-mask-item/fill-mask-item",
     "crop-controller": "./controller/crop-controller/crop-controller",
-    "image-controller": "./controller/image-controller/image-controller"
-    }
+    "image-controller": "./controller/image-controller/image-controller",
+    "bottom-controller": "./controller/bottom-controller/bottom-controller",
+    "canvas-controller": "./controller/canvas-controller/canvas-controller"
+  }
 }

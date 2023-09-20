@@ -1,57 +1,62 @@
-<view class="image-crop view-class" bind:touchmove="handleTouchMove" bind:touchend="handleTouchEnd">
-  <view class="mask">
-    <mask-item crop="{{crop}}" position="top"></mask-item>
-    <view class="crop-area">
-      <mask-item crop="{{crop}}" position="left"></mask-item>
-      <crop width="{{crop.width}}" height="{{crop.height}}">
-        <crop-controller
-          type="top-left"
-          class="controller"
-          crop="{{crop}}"
-          container="{{container}}"
-          bind:move="handleCropControllerMove"
-          bind:controllerTouchStart="handeControllerTouchStart"
-        ></crop-controller>
+<view class="image-crop view-class">
+  <view class="view-area" bind:touchmove="handleTouchMove" bind:touchend="handleTouchEnd">
+    <view class="mask">
+      <mask-item crop="{{crop}}" position="top"></mask-item>
+      <view class="crop-area">
+        <mask-item crop="{{crop}}" position="left"></mask-item>
+        <crop width="{{crop.width}}" height="{{crop.height}}">
+          <crop-controller
+            type="top-left"
+            class="controller"
+            crop="{{crop}}"
+            container="{{container}}"
+            bind:move="handleCropControllerMove"
+            bind:controllerTouchStart="handeControllerTouchStart"
+          ></crop-controller>
 
-        <crop-controller
-          type="top-right"
-          class="controller"
-          crop="{{crop}}"
-          container="{{container}}"
-          bind:move="handleCropControllerMove"
-          bind:controllerTouchStart="handeControllerTouchStart"
-        ></crop-controller>
+          <crop-controller
+            type="top-right"
+            class="controller"
+            crop="{{crop}}"
+            container="{{container}}"
+            bind:move="handleCropControllerMove"
+            bind:controllerTouchStart="handeControllerTouchStart"
+          ></crop-controller>
 
-        <crop-controller
-          type="bottom-right"
-          class="controller"
-          crop="{{crop}}"
-          container="{{container}}"
-          bind:move="handleCropControllerMove"
-          bind:controllerTouchStart="handeControllerTouchStart"
-        ></crop-controller>
+          <crop-controller
+            type="bottom-right"
+            class="controller"
+            crop="{{crop}}"
+            container="{{container}}"
+            bind:move="handleCropControllerMove"
+            bind:controllerTouchStart="handeControllerTouchStart"
+          ></crop-controller>
 
-        <crop-controller
-          type="bottom-left"
-          class="controller"
-          crop="{{crop}}"
-          container="{{container}}"
-          bind:move="handleCropControllerMove"
-          bind:controllerTouchStart="handeControllerTouchStart"
-        ></crop-controller>
-      </crop>
+          <crop-controller
+            type="bottom-left"
+            class="controller"
+            crop="{{crop}}"
+            container="{{container}}"
+            bind:move="handleCropControllerMove"
+            bind:controllerTouchStart="handeControllerTouchStart"
+          ></crop-controller>
+        </crop>
+        <fill-mask-item></fill-mask-item>
+      </view>
+
       <fill-mask-item></fill-mask-item>
     </view>
 
-    <fill-mask-item></fill-mask-item>
+    <image-controller
+      class="image-controller"
+      src="{{src}}"
+      crop="{{crop}}"
+      container="{{container}}"
+      bind:controllerTouchStart="handeControllerTouchStart"
+      bind:init="handleImagecontrollerInit"
+    ></image-controller>
   </view>
 
-  <image-controller
-    class="image-controller"
-    src="{{src}}"
-    crop="{{crop}}"
-    container="{{container}}"
-    bind:controllerTouchStart="handeControllerTouchStart"
-    bind:init="handleImagecontrollerInit"
-  ></image-controller>
+  <bottom-controller bind:complete="handleComplete"></bottom-controller>
+  <canvas-controller></canvas-controller>
 </view>

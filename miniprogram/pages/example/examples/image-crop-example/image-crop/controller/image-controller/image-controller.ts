@@ -45,6 +45,7 @@ Component({
     _pxToRpx: 0,
     _type: "image-controller",
     _isUpdate: false,
+    _isScaleLock: false,
   },
 
   behaviors: ["wx://component-export"],
@@ -246,53 +247,49 @@ Component({
       };
 
       const checkLeftRight = () => {
-        let checkAgain = false;
         if (
-          x + xYInscrease.xInscrease > crop.x &&
-          x + xYInscrease.xInscrease + size.width * scale < crop.x + crop.width
+          x + xYInscrease.xInscrease >= crop.x &&
+          x + xYInscrease.xInscrease + size.width * scale <= crop.x + crop.width
         ) {
           // 缩小过程中同时靠边
           scale = crop.width / size.width;
           x = crop.x - xYInscrease.xInscrease;
-          checkAgain = true;
+
+          this.data._isScaleLock = true;
           console.log("左右同时靠边");
-        } else if (x + xYInscrease.xInscrease > crop.x) {
+        } else if (x + xYInscrease.xInscrease >= crop.x) {
           // 缩小过程中左边靠边
           x = crop.x - xYInscrease.xInscrease;
 
           console.log("左边靠边");
         } else if (
           // 缩小过程中右边靠边
-          x + xYInscrease.xInscrease + size.width * scale <
+          x + xYInscrease.xInscrease + size.width * scale <=
           crop.x + crop.width
         ) {
           x = crop.x + crop.width - size.width * scale - xYInscrease.xInscrease;
 
           console.log("右边靠边");
         }
-
-        return checkAgain;
       };
 
       const checkTopBottom = () => {
-        let checkAgain = false;
         if (
-          y + xYInscrease.yInscrease > crop.y &&
-          y + xYInscrease.yInscrease + size.height * scale <
+          y + xYInscrease.yInscrease >= crop.y &&
+          y + xYInscrease.yInscrease + size.height * scale <=
             crop.y + crop.height
         ) {
           scale = crop.height / size.height;
           y = crop.y - xYInscrease.yInscrease;
-          checkAgain = true;
+          this.data._isScaleLock = false;
 
           console.log("上下靠边");
-        } else if (y + xYInscrease.yInscrease > crop.y) {
-          console.log(xYInscrease.yInscrease);
+        } else if (y + xYInscrease.yInscrease >= crop.y) {
           y = crop.y - xYInscrease.yInscrease;
 
           console.log("上靠边");
         } else if (
-          y + xYInscrease.yInscrease + size.height * scale <
+          y + xYInscrease.yInscrease + size.height * scale <=
           crop.y + crop.height
         ) {
           y =
@@ -300,17 +297,17 @@ Component({
 
           console.log("下靠边");
         }
-
-        return checkAgain;
       };
 
-      if (checkTopBottom()) {
-        checkLeftRight();
+      const checkArray = [checkLeftRight];
+
+      if (this.data._isScaleLock) {
+        checkArray.push(checkTopBottom);
+      } else {
+        checkArray.unshift(checkTopBottom);
       }
 
-      if (checkLeftRight()) {
-        checkTopBottom();
-      }
+      checkArray.forEach((_) => _());
 
       return [x, y, scale];
     },

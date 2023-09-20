@@ -1,5 +1,17 @@
+/** @format */
+
 Component({
-  data: {},
+  options: {
+    pureDataPattern: /^_/,
+  },
+
+  data: {
+    _canvas: null as WechatMiniprogram.Canvas | null,
+  },
+
   properties: {},
-  methods: {}
-})
+
+  methods: {},
+
+  attached() {},
+});

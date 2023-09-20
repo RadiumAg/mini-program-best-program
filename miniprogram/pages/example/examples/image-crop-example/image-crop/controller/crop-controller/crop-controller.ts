@@ -1,7 +1,7 @@
 /** @format */
 import {getPxToRpx} from "../../utils/page";
 import {props} from "./prop";
-import type {ControllerTouchStart, Position, UpdateEvent} from "./type";
+import type {ControllerTouchStart, MoveEvent, Position} from "./type";
 import type {Crop} from "../../crop/type";
 
 Component({
@@ -130,7 +130,7 @@ Component({
         y: newY,
         height: newHeight,
         width: newWidth,
-      } as UpdateEvent);
+      } as MoveEvent);
     },
 
     updated() {

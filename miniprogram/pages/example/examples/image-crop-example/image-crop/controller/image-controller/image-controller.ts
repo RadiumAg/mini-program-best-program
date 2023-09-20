@@ -232,62 +232,84 @@ Component({
 
     checkScale(x: number, y: number, size: typeof this.data.size) {
       let scale = size.scale;
-      let increaseScale = 1 - size.scale;
       const crop = this.data.crop as Crop;
 
-      if (
-        x + size.width * (increaseScale / 2) + size.width * size.scale <
-          crop.x + crop.width &&
-        x + size.width * (increaseScale / 2) > crop.x
-      ) {
-        // 缩小过程中同时靠边
-        scale = crop.width / size.width;
-        increaseScale = 1 - scale;
-        x = crop.x - size.width * (increaseScale / 2);
+      const xYInscrease = {
+        get xInscrease() {
+          return (size.width - size.width * scale) / 2;
+        },
 
-        console.log("左右同时靠边");
-      } else if (x + size.width * (increaseScale / 2) > crop.x) {
-        // 缩小过程中左边靠边
-        console.log(increaseScale);
-        x = crop.x - size.width * (increaseScale / 2);
+        get yInscrease() {
+          console.log(scale);
+          return (size.height - size.height * scale) / 2;
+        },
+      };
 
-        console.log("左边靠边");
-      } else if (
-        // 缩小过程中右边靠边
-        x + size.width * (increaseScale / 2) + size.width * size.scale <
-        crop.x + crop.width
-      ) {
-        x =
-          crop.x + crop.width - (size.width - size.width * (increaseScale / 2));
+      const checkLeftRight = () => {
+        let checkAgain = false;
+        if (
+          x + xYInscrease.xInscrease > crop.x &&
+          x + xYInscrease.xInscrease + size.width * scale < crop.x + crop.width
+        ) {
+          // 缩小过程中同时靠边
+          scale = crop.width / size.width;
+          x = crop.x - xYInscrease.xInscrease;
+          checkAgain = true;
+          console.log("左右同时靠边");
+        } else if (x + xYInscrease.xInscrease > crop.x) {
+          // 缩小过程中左边靠边
+          x = crop.x - xYInscrease.xInscrease;
 
-        console.log("右边靠边");
+          console.log("左边靠边");
+        } else if (
+          // 缩小过程中右边靠边
+          x + xYInscrease.xInscrease + size.width * scale <
+          crop.x + crop.width
+        ) {
+          x = crop.x + crop.width - size.width * scale - xYInscrease.xInscrease;
+
+          console.log("右边靠边");
+        }
+
+        return checkAgain;
+      };
+
+      const checkTopBottom = () => {
+        let checkAgain = false;
+        if (
+          y + xYInscrease.yInscrease > crop.y &&
+          y + xYInscrease.yInscrease + size.height * scale <
+            crop.y + crop.height
+        ) {
+          scale = crop.height / size.height;
+          y = crop.y - xYInscrease.yInscrease;
+          checkAgain = true;
+
+          console.log("上下靠边");
+        } else if (y + xYInscrease.yInscrease > crop.y) {
+          console.log(xYInscrease.yInscrease);
+          y = crop.y - xYInscrease.yInscrease;
+
+          console.log("上靠边");
+        } else if (
+          y + xYInscrease.yInscrease + size.height * scale <
+          crop.y + crop.height
+        ) {
+          y =
+            crop.y + crop.height - size.height * scale - xYInscrease.yInscrease;
+
+          console.log("下靠边");
+        }
+
+        return checkAgain;
+      };
+
+      if (checkTopBottom()) {
+        checkLeftRight();
       }
 
-      if (
-        y + size.height * (increaseScale / 2) > crop.y &&
-        y + size.height * (increaseScale / 2) + size.height * scale <
-          crop.y + crop.height
-      ) {
-        scale = crop.height / size.height;
-        console.log(scale);
-        increaseScale = 1 - scale;
-        y = crop.y - size.height * (increaseScale / 2);
-
-        console.log("上下靠边");
-      } else if (y + size.height * (increaseScale / 2) > crop.y) {
-        y = crop.y - size.height * (increaseScale / 2);
-
-        console.log("上靠边");
-      } else if (
-        y + size.height * (increaseScale / 2) + size.height * scale <
-        crop.y + crop.height
-      ) {
-        y =
-          crop.y +
-          crop.height -
-          (size.height - size.height * (increaseScale / 2));
-
-        console.log("下靠边");
+      if (checkLeftRight()) {
+        checkTopBottom();
       }
 
       return [x, y, scale];
@@ -321,7 +343,7 @@ Component({
           }
         );
       } else if (event.touches.length === 2) {
-        const {x, y} = this.data._oldPosition;
+        const {x, y} = this.data.position;
         const {scale} = this.data._oldSize;
         const [clientFirst, clientSecond] = event.touches;
 

@@ -81,13 +81,13 @@ Component({
           };
         });
 
+        console.log(canvasX, crop.width);
+
         const {tempFilePath} = await wx.canvasToTempFilePath({
           canvas: _canvas,
 
           x: canvasX,
           y: canvasY,
-          width: crop.width,
-          height: crop.height,
         });
 
         return tempFilePath;

@@ -1,6 +1,1 @@
-<canvas
-  class="canvas"
-  style="width:{{size.width}}rpx;height:{{size.height}}rpx"
-  type="2d"
-  id="canvas-controller"
-></canvas>
+<canvas class="canvas" type="2d" id="canvas-controller"></canvas>

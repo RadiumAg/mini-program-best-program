@@ -4,7 +4,11 @@ import {props} from "./props";
 import {getPxToRpx} from "../../utils/page";
 import type {Container} from "../../type";
 import type {Crop} from "../../crop/type";
-import type {ImageController, ImageControllerInitEvent} from "./type";
+import type {
+  AfterSetImageSizeEvent,
+  ImageController,
+  ImageControllerInitEvent,
+} from "./type";
 
 Component({
   options: {
@@ -117,10 +121,18 @@ Component({
         imageWidth = imageHeight * imageProportion;
       }
 
-      this.setData({
-        "size.width": imageWidth,
-        "size.height": imageHeight,
-      });
+      this.setData(
+        {
+          "size.width": imageWidth,
+          "size.height": imageHeight,
+        },
+        () => {
+          this.triggerEvent("afterSetImageSize", {
+            width: imageWidth,
+            height: imageHeight,
+          } as AfterSetImageSizeEvent);
+        }
+      );
     },
 
     /**

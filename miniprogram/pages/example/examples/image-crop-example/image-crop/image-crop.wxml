@@ -52,6 +52,7 @@
       src="{{src}}"
       crop="{{crop}}"
       container="{{container}}"
+      bind:afterSetImageSize="handleAfterSetImageSize"
       bind:controllerTouchStart="handeControllerTouchStart"
       bind:init="handleImagecontrollerInit"
     ></image-controller>
@@ -61,7 +62,7 @@
   <canvas-controller
     src="{{src}}"
     crop="{{crop}}"
-    image-controller="{{_imageController}}"
+    image-controller="{{imageController}}"
     class="canvas-controller"
   ></canvas-controller>
 </view>

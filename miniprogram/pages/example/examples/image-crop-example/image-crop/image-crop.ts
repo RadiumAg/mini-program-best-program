@@ -10,6 +10,7 @@ import type {
   MoveEvent,
 } from "./controller/crop-controller/type";
 import type {
+  AfterSetImageSizeEvent,
   ImageController,
   ImageControllerInitEvent,
 } from "./controller/image-controller/type";
@@ -33,11 +34,11 @@ Component({
       width: 500,
     } as Crop,
     container: {} as Container,
+    imageController: null as ImageController | null,
 
     _pxToRpx: 0,
     _isUpdate: false,
     _cropControllerArray: [] as Controller[],
-    _imageController: null as ImageController | null,
     _canvasController: null as CanvasController | null,
     _activeController: null as Controller | ImageController | null,
   },
@@ -90,6 +91,15 @@ Component({
       );
     },
 
+    handleAfterSetImageSize(
+      event: WechatMiniprogram.CustomEvent<AfterSetImageSizeEvent>
+    ) {
+      const {width, height} = event.detail;
+      const {_canvasController} = this.data;
+
+      _canvasController?.setCanvasSize(width, height);
+    },
+
     handleTouchMove(event: WechatMiniprogram.TouchEvent) {
       if (this.data._isUpdate) return;
       this.data._activeController?.touchMove(event);
@@ -103,7 +113,7 @@ Component({
       event: WechatMiniprogram.CustomEvent<ControllerTouchStart>
     ) {
       const controllers = [
-        this.data._imageController,
+        this.data.imageController,
         ...this.data._cropControllerArray,
       ];
       const {type} = event.detail;
@@ -113,7 +123,7 @@ Component({
 
     async handleComplete() {
       const {_canvasController} = this.data;
-      console.log(_canvasController?.cut());
+      console.log(await _canvasController?.cut());
     },
 
     checkBoundary(x: number, y: number, width: number, height: number) {
@@ -214,7 +224,7 @@ Component({
     },
 
     checkImageBoundary(x: number, y: number, width: number, height: number) {
-      const {_imageController: imageController} = this.data;
+      const {imageController: imageController} = this.data;
 
       if (imageController === null) return [x, y, width, height];
 
@@ -271,7 +281,7 @@ Component({
     this.data._cropControllerArray.forEach((_) => _.update());
 
     this.setData({
-      _imageController: this.selectComponent(
+      imageController: this.selectComponent(
         ".image-controller"
       ) as unknown as ImageController,
     });

@@ -20,4 +20,9 @@ type ImageController = {
   };
 };
 
-export type {ImageControllerInitEvent, ImageController};
+type AfterSetImageSizeEvent = {
+  width: number;
+  height: number;
+};
+
+export type {ImageControllerInitEvent, ImageController, AfterSetImageSizeEvent};

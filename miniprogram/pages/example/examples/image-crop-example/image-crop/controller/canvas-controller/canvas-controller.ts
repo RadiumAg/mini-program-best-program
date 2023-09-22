@@ -2,6 +2,7 @@
 
 import {getPxToRpx} from "../../utils/page";
 import {props} from "./props";
+import type {CanvasController} from "./type";
 
 Component({
   options: {
@@ -27,7 +28,6 @@ Component({
     const {src} = this.data;
     this.data._pxToRpx = await getPxToRpx();
     this.data._imageInfo = await wx.getImageInfo({src});
-    console.log(this.data._imageInfo);
 
     this.createSelectorQuery()
       .select("#canvas-controller")
@@ -42,10 +42,18 @@ Component({
 
   export() {
     return {
-      export: () => {
+      cut: async () => {
         const {imageController, crop, _imageInfo, _canvas, _context} =
           this.data;
-        if (_canvas === null || crop === null || _context === null) return;
+
+        console.log(imageController, crop, _canvas, _context, _imageInfo);
+        if (
+          crop === null ||
+          _canvas === null ||
+          _context === null ||
+          _imageInfo === null
+        )
+          return;
 
         const imageControllerSize = imageController.getSize();
         const imageControllerPosition = imageController.getPosition();
@@ -55,9 +63,26 @@ Component({
         _canvas.width = imageControllerSize.width;
         _canvas.height = imageControllerSize.height;
 
-        _context.getImageData(canvasX, canvasY, crop.width, crop.height);
-        wx.canvasToTempFilePath({canvas: _canvas, width: _canvas.width});
+        await new Promise((resolve) => {
+          const image = _canvas.createImage();
+          image.src = _imageInfo.path;
+          image.onload = () => {
+            _context.drawImage(image, 0, 0);
+            resolve("resolve");
+          };
+        });
+
+        const {tempFilePath} = await wx.canvasToTempFilePath({
+          x: canvasX,
+          y: canvasY,
+          canvas: _canvas,
+          width: _canvas.width,
+          height: _canvas.height,
+        });
+
+        console.log(tempFilePath);
+        return tempFilePath;
       },
-    };
+    } as CanvasController;
   },
 });

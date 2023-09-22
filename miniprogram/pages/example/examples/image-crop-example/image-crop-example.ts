@@ -14,7 +14,6 @@ Page({
    */
   async onLoad() {
     const {path} = await wx.getImageInfo({src: "./test.jpg"});
-    console.log(path);
     this.setData({
       path: `/${path}`,
     });

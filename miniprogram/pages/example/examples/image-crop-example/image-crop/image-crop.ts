@@ -14,6 +14,7 @@ import type {
   ImageControllerInitEvent,
 } from "./controller/image-controller/type";
 import type {Crop} from "./crop/type";
+import {CanvasController} from "./controller/canvas-controller/type";
 
 Component({
   options: {
@@ -37,6 +38,7 @@ Component({
     _isUpdate: false,
     _cropControllerArray: [] as Controller[],
     _imageController: null as ImageController | null,
+    _canvasController: null as CanvasController | null,
     _activeController: null as Controller | ImageController | null,
   },
 
@@ -109,7 +111,10 @@ Component({
       this.data._activeController = controllers.find((_) => _.type === type)!;
     },
 
-    handleComplete() {},
+    async handleComplete() {
+      const {_canvasController} = this.data;
+      console.log(_canvasController?.cut());
+    },
 
     checkBoundary(x: number, y: number, width: number, height: number) {
       const checkArray = [this.checkContainerBoundary, this.checkImageBoundary];
@@ -265,9 +270,15 @@ Component({
     ) as unknown as Controller[];
     this.data._cropControllerArray.forEach((_) => _.update());
 
-    this.data._imageController = this.selectComponent(
-      ".image-controller"
-    ) as unknown as ImageController;
+    this.setData({
+      _imageController: this.selectComponent(
+        ".image-controller"
+      ) as unknown as ImageController,
+    });
+
+    this.data._canvasController = this.selectComponent(
+      ".canvas-controller"
+    ) as unknown as CanvasController;
 
     this.createSelectorQuery()
       .select(".view-area")

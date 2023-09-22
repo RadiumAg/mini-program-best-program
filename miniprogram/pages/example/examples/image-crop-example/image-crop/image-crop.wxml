@@ -62,5 +62,6 @@
     src="{{src}}"
     crop="{{crop}}"
     image-controller="{{_imageController}}"
+    class="canvas-controller"
   ></canvas-controller>
 </view>

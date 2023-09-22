@@ -3,5 +3,5 @@
 
   <text>旋转</text>
 
-  <text class="complete">完成</text>
+  <text class="complete" bind:tap="handleComplete">完成</text>
 </view>

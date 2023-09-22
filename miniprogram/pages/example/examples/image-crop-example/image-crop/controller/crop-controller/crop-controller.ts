@@ -1,6 +1,6 @@
 /** @format */
 import {getPxToRpx} from "../../utils/page";
-import {props} from "./prop";
+import {props} from "./props";
 import type {ControllerTouchStart, MoveEvent, Position} from "./type";
 import type {Crop} from "../../crop/type";
 

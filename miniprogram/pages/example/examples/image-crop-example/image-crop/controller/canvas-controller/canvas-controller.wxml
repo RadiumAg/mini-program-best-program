@@ -1,1 +1,1 @@
-<canvas class="canvas" canvas="2d" canvas-id="canvas-controller"></canvas>
+<canvas class="canvas" type="2d" canvas-id="canvas-controller" id="canvas-controller"></canvas>

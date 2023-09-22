@@ -58,5 +58,9 @@
   </view>
 
   <bottom-controller bind:complete="handleComplete"></bottom-controller>
-  <canvas-controller></canvas-controller>
+  <canvas-controller
+    src="{{src}}"
+    crop="{{crop}}"
+    image-controller="{{_imageController}}"
+  ></canvas-controller>
 </view>

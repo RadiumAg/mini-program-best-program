@@ -4334,6 +4334,11 @@ ctx.draw()
         /** 接口调用成功的回调函数 */
         success?: CropImageSuccessCallback
     }
+    interface CropImageSuccessCallbackResult {
+        /** 编辑后图片的临时文件路径 (本地路径) */
+        tempFilePath: string
+        errMsg: string
+    }
     interface CurrentState {
         /** 当前缓存中的日志条数 */
         logCount: number
@@ -4596,11 +4601,6 @@ ctx.draw()
         fail?: EditImageFailCallback
         /** 接口调用成功的回调函数 */
         success?: EditImageSuccessCallback
-    }
-    interface EditImageSuccessCallbackResult {
-        /** 编辑后图片的临时文件路径 (本地路径) */
-        tempFilePath: string
-        errMsg: string
     }
     interface EnableAlertBeforeUnloadOption {
         /** 询问对话框内容 */
@@ -5138,7 +5138,7 @@ ctx.draw()
         /** 接口调用结果 */
         errMsg: string
         /** 自定义的登录态 */
-        token: number
+        token: string
     }
     interface GetBatteryInfoOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -5715,7 +5715,7 @@ ctx.draw()
         success?: GetPrivacySettingSuccessCallback
     }
     interface GetPrivacySettingSuccessCallbackResult {
-        /** 用户是否需要进行授权 */
+        /** 是否需要用户授权隐私协议（如果开发者没有在[mp后台-设置-服务内容声明-用户隐私保护指引]中声明隐私收集类型则会返回false；如果开发者声明了隐私收集，且用户之前同意过隐私协议则会返回false；如果开发者声明了隐私收集，且用户还没同意过则返回true；如果用户之前同意过、但后来小程序又新增了隐私收集类型也会返回true） */
         needAuthorization: boolean
         /** 隐私授权协议的名称 */
         privacyContractName: string
@@ -6924,7 +6924,7 @@ InnerAudioContext.offWaiting(listener) // 需传入与监听时同一个的函�
         /** 启动小程序的路径 (代码包路径) */
         path: string
         /** 启动小程序的 query 参数 */
-        query: IAnyObject
+        query: Record<string, string>
         /** 来源信息。从另一个小程序、公众号或 App 进入小程序时返回。否则返回 `{}`。(参见后文注意) */
         referrerInfo: ReferrerInfo
         /** 启动小程序的[场景值](https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/scene.html) */
@@ -7938,7 +7938,7 @@ NFCAdapter.offDiscovered(listener) // 需传入与监听时同一个的函数对
         /** 不存在页面的路径 (代码包路径) */
         path: string
         /** 打开不存在页面的 query 参数 */
-        query: IAnyObject
+        query: Record<string, string>
     }
     interface OnScreenRecordingStateChangedListenerResult {
         /** 录屏状态
@@ -8308,6 +8308,36 @@ NFCAdapter.offDiscovered(listener) // 需传入与监听时同一个的函数对
          * 用户订阅消息设置，接口参数`withSubscriptions`值为`true`时才会返回。 */
         subscriptionsSetting: SubscriptionsSetting
         errMsg: string
+    }
+    interface OpenSingleStickerViewOption {
+        /** 表情链接，可前往[表情开放平台](https://sticker.weixin.qq.com/)获取 */
+        url: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: OpenSingleStickerViewCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: OpenSingleStickerViewFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: OpenSingleStickerViewSuccessCallback
+    }
+    interface OpenStickerIPViewOption {
+        /** 表情IP合辑链接，可前往[表情开放平台](https://sticker.weixin.qq.com/)获取 */
+        url: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: OpenStickerIPViewCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: OpenStickerIPViewFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: OpenStickerIPViewSuccessCallback
+    }
+    interface OpenStickerSetViewOption {
+        /** 表情专辑链接，可前往[表情开放平台](https://sticker.weixin.qq.com/)获取 */
+        url: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: OpenStickerSetViewCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: OpenStickerSetViewFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: OpenStickerSetViewSuccessCallback
     }
     interface OpenSuccessCallbackResult {
         /** 文件描述符 */
@@ -9579,6 +9609,16 @@ NFCAdapter.offDiscovered(listener) // 需传入与监听时同一个的函数对
         /** 预告 id，通过 getChannelsLiveNoticeInfo 接口获取 */
         noticeId: string
     }
+    interface RestartMiniProgramOption {
+        /** 打开的页面路径，path 中 ? 后面的部分会成为 query */
+        path: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: RestartMiniProgramCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: RestartMiniProgramFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: RestartMiniProgramSuccessCallback
+    }
     interface ResumeBGMOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: ResumeBGMCompleteCallback
@@ -10520,6 +10560,27 @@ wx.createSelectorQuery()
             | 'a-b test not enabled)) 命中了 _We 分析_ 平台上的 AB 实验关闭的情况。详细可以查看 [Skyline 起步 > 配置 We 分析 AB 实验]((skyline/migration#%E9%85%8D%E7%BD%AE-We-%E5%88%86%E6%9E%90-AB-%E5%AE%9E%E9%AA%8C'
             | 'SwitchRender option set to webview)) 本地调试的快捷切换入口被设置为了强制使用 Webview. 详情可以查看 [Skyline 起步 > 快捷切换入口]((skyline/migration#快捷切换入口'
     }
+    /** Snapshot 实例，可通过 [SelectorQuery](https://developers.weixin.qq.com/miniprogram/dev/api/wxml/SelectorQuery.html) 获取。
+     *
+     * [Snapshot](https://developers.weixin.qq.com/miniprogram/dev/api/snapshot/Snapshot.html) 通过 `id` 跟一个 [snapshot](#) 组件绑定，操作对应的 [snapshot(#) 组件。
+     *
+     * **示例代码**
+     *
+     * [在微信开发者工具中查看示例](https://developers.weixin.qq.com/s/jdkplEm17hJP) */
+    interface Snapshot {
+        /** 画布高度 */
+        height: number
+        /** 画布宽度 */
+        width: number
+        /** [Snapshot.takeSnapshot(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/snapshot/Snapshot.takeSnapshot.html)
+         *
+         * 需要基础库： `3.0.0`
+         *
+         * 在插件中使用：支持
+         *
+         * 对 snapshot 组件子树进行截图 */
+        takeSnapshot(option: TakeSnapshotOption): void
+    }
     /** 需要基础库： `2.10.4`
      *
      * 网络请求过程中一些调试信息 */
@@ -11387,6 +11448,25 @@ wx.getSetting({
     interface TakePhotoSuccessCallbackResult {
         /** 照片文件的临时路径 (本地路径)，安卓是jpg图片格式，ios是png */
         tempImagePath: string
+        errMsg: string
+    }
+    interface TakeSnapshotOption {
+        /** 截图文件格式，'rgba' 或 'png'，默认值为 'png' */
+        format: string
+        /** 截图导出类型，'file' 保存到临时文件目录或 'arraybuffer' 返回图片二进制数据，默认值为 'file' */
+        type: string
+        /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+        complete?: TakeSnapshotCompleteCallback
+        /** 接口调用失败的回调函数 */
+        fail?: TakeSnapshotFailCallback
+        /** 接口调用成功的回调函数 */
+        success?: TakeSnapshotSuccessCallback
+    }
+    interface TakeSnapshotSuccessCallbackResult {
+        /** 截图对应的二进制数据，当 type 为 arraybuffer 该字段生效 */
+        data: ArrayBuffer
+        /** 截图保存的临时文件路径，当 type 为 file 该字段生效 */
+        tempFilePath: string
         errMsg: string
     }
     /** 标签类型枚举 */
@@ -19430,7 +19510,10 @@ wx.getRandomValues({
          * | -15010 |  | 道具productId未发布 |
          * | -15011 |  | 现网版本的env只能是0,不能填1(沙盒环境) |
          * | -15012 |  | 调用米大师失败导致关单,请换新单号重试 |
-         * | -15013 |  | goodsPrice道具价格错误 | */ errMsg: string
+         * | -15013 |  | goodsPrice道具价格错误 |
+         * | -15014 |  | 道具发布不到五分钟,禁止下单 |
+         * | -15015 |  | 代币发布不到五分钟,禁止下单 |
+         * | -15016 |  | signData格式有问题 | */ errMsg: string
         /** 错误码
          *
          * | 错误码 | 错误信息 | 说明 |
@@ -19451,7 +19534,10 @@ wx.getRandomValues({
          * | -15010 |  | 道具productId未发布 |
          * | -15011 |  | 现网版本的env只能是0,不能填1(沙盒环境) |
          * | -15012 |  | 调用米大师失败导致关单,请换新单号重试 |
-         * | -15013 |  | goodsPrice道具价格错误 | */ errCode: number
+         * | -15013 |  | goodsPrice道具价格错误 |
+         * | -15014 |  | 道具发布不到五分钟,禁止下单 |
+         * | -15015 |  | 代币发布不到五分钟,禁止下单 |
+         * | -15016 |  | signData格式有问题 | */ errCode: number
     }
     interface WifiError {
         /** 错误信息
@@ -22416,7 +22502,7 @@ wx.getClipboardData({
 *
 * ```js
   wx.getCommonConfig({
-      keys:["TestBizuinKv_a_1", "TestBizuinKv_b_2"],
+      keys:["key1", "key2"],
       mode: 0,
       success: (res)=>{
         console.log("success")
@@ -22760,22 +22846,67 @@ wx.getNetworkType({
         ): PromisifySuccessResult<T, GetNetworkTypeOption>
         /** [wx.getPrivacySetting(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.getPrivacySetting.html)
 *
-* 需要基础库： `2.33.0`
+* 需要基础库： `2.32.3`
 *
 * 在插件中使用：不支持
 *
-* 查询隐私授权情况
+* 查询隐私授权情况。隐私合规开发指南详情可见[《小程序隐私协议开发指南》](https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html)
 *
 * **示例代码**
 *
+* ```html
+* // page.wxml
+* <view wx:if="{{showPrivacy}}">
+*   <view>隐私弹窗内容....</view>
+*   <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
+* </view>
+* ```
 * ```js
-  wx.getPrivacySetting({
-    success: res => { console.log(res)
-        // 返回结果为: res = { needAuthorization: true/false, privacyContractName: '《xxx隐私保护指引》' } },
-    fail: () => {},
-    complete() => {}
-  })
-``` */
+Page({
+  data: {
+    showPrivacy: false
+  },
+  onLoad() {
+    wx.getPrivacySetting({
+      success: res => {
+        console.log(res) // 返回结果为: res = { needAuthorization: true/false, privacyContractName: '《xxx隐私保护指引》' }
+        if (res.needAuthorization) {
+          // 需要弹出隐私协议
+          this.setData({
+            showPrivacy: true
+          })
+        } else {
+          // 用户已经同意过隐私协议，所以不需要再弹出隐私协议，也能调用隐私接口
+        }
+      },
+      fail: () => {},
+      complete() => {}
+    })
+  },
+  handleAgreePrivacyAuthorization() {
+    // 用户同意隐私协议事件回调
+    // 用户点击了同意，之后所有隐私接口和组件都可以调用了
+    // wx.getUserProfile()
+    // wx.chooseMedia()
+    // wx.getClipboardData()
+    // wx.startRecord()
+  }
+})
+```
+*
+* **完整示例demo**
+*
+* demo1: 演示使用 `wx.getPrivacySetting` 和 `<button open-type="agreePrivacyAuthorization">` 在首页处理隐私弹窗逻辑
+* [https://developers.weixin.qq.com/s/gi71sGm67hK0](https://developers.weixin.qq.com/s/gi71sGm67hK0)
+*
+* demo2: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个页面处理隐私弹窗逻辑，同时演示了如何处理多个隐私接口同时调用。
+* [https://developers.weixin.qq.com/s/4X7yyGmQ7EKp](https://developers.weixin.qq.com/s/4X7yyGmQ7EKp)
+*
+* demo3: 演示 `wx.onNeedPrivacyAuthorization`、`wx.requirePrivacyAuthorize`、`<button open-type="agreePrivacyAuthorization">` 和 `<input type="nickname">` 组件如何结合使用
+* [https://developers.weixin.qq.com/s/jX7xWGmA7UKa](https://developers.weixin.qq.com/s/jX7xWGmA7UKa)
+*
+* demo4: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个 tabBar 页面处理隐私弹窗逻辑。
+* [https://developers.weixin.qq.com/s/g6BWZGmt7XK9](https://developers.weixin.qq.com/s/g6BWZGmt7XK9) */
         getPrivacySetting(option: GetPrivacySettingOption): void
         /** [wx.getRandomValues(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/device/crypto/wx.getRandomValues.html)
 *
@@ -25263,44 +25394,105 @@ wx.onKeyboardHeightChange(res => {
             /** 内存不足告警事件的监听函数 */
             listener: OnMemoryWarningCallback
         ): void
-        /** [wx.onNeedPrivacyAuthorization(function callback)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.onNeedPrivacyAuthorization.html)
+        /** [wx.onNeedPrivacyAuthorization(function listener)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.onNeedPrivacyAuthorization.html)
 *
-* 需要基础库： `2.33.0`
+* 需要基础库： `2.32.3`
 *
 * 在插件中使用：不支持
 *
-* 该接口对onNeedPrivacyAuthorization事件进行监听，当需要用户授权弹窗时会触发，可以通过调用resolve函数，对授权事件进行上报。
+* 监听隐私接口需要用户授权事件。当需要用户进行隐私授权时会触发。触发该事件时，开发者需要弹出隐私协议说明，并在用户同意或拒绝授权后调用回调接口 resolve 进行上报。隐私合规开发指南详情可见[《小程序隐私协议开发指南》](https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html)
+*
+* ****
+*
+* ## 回调参数
+*
+* ### function resolve
+*
+* resolve 是 onNeedPrivacyAuthorization 的回调参数，是一个接口函数, 调用 resolve 将上报用户的隐私授权状态并继续执行原隐私接口，例如：resolve({ buttonId:'disagree-btn'， event:'agree' })。其中 buttonId 为隐私同意授权按钮的id，为确保用户有同意的操作，基础库在 resolve 被调用后，会去检查对应的同意按钮是否被点击过。
+*
+* ****
+*
+* ## resolve 接口参数
+*
+* | 属性 | 类型 | 是否必填 | 说明 |
+* | ---- | ---- | ---- | ---- |
+* | event | string |  是 | 用户操作类型 |
+* | buttonId | string | 是 | 同意授权按钮的id （仅event=agree时必填） |
+*
+* ### event 合法值
+*
+* | event | 说明 |
+* | ---- | ---- |
+* | exposureAuthorization | 自定义隐私弹窗曝光 |
+* | agree | 用户同意隐私授权 |
+* | disagree | 用户拒绝隐私授权 |
+*
+* ****
+*
+* ## 具体说明：
+*
+* - 1. 什么时候会触发 onNeedPrivacyAuthorization 事件？
+*   - 1. 调用隐私相关接口（比如 wx.getUserProfile、wx.getClipboardData）和组件（比如 `<button open-type="getPhoneNumber"></button>`），并且用户还未同意过隐私协议时
+*   - 2. 调用 wx.requirePrivacyAuthorize 接口来模拟隐私接口调用，并且用户还未同意过隐私协议时
+*   - 3. 如果用户已经同意过隐私协议，则不会再触发 onNeedPrivacyAuthorization 事件
+* - 2. 当触发 onNeedPrivacyAuthorization 事件时，触发该事件的隐私接口或组件会处于 pending 状态，等待用户授权后才会继续执行，此时开发者需要弹出自定义隐私弹窗，并在用户点击同意后调用回调接口 resolve 进行上报，上报后，触发该事件的隐私接口（比如 wx.getUserInfo、wx.getClipboardData）才会继续执行。
+* - 3. wx.onNeedPrivacyAuthorization 是覆盖式注册监听，若重复注册监听，则只有最后一次注册会生效。
 *
 * **示例代码**
 *
 * ```html
-* // example.wxml
-* <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization"></button>
+* // page.wxml
+* <view wx:if="{{showPrivacy}}">
+*   <view>隐私弹窗内容....</view>
+*   <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
+* </view>
 * ```
 * ```js
-// index.js
-// 开发者无需自己把握弹窗时机，而是基础库告诉开发者什么时候要弹窗，需要用户授权弹窗时会触发 onNeedPrivacyAuthorization 事件
-let resolvePrivacyAuthorization
-wx.onNeedPrivacyAuthorization(resolve => {
-    resolvePrivacyAuthorization = resolve
-    // 开发者弹出自定义的隐私弹窗
-    // showCustomPrivacyAuthorization()
-})
-
+// page.js
 Page({
-    handleAgreePrivacyAuthorization() {
-        resolvePrivacyAuthorization({ buttonId: 'agree-btn', event: 'agree' })
-      // 用户点击同意后，开发者调用 resolve({ buttonId: 'agree-btn', event: 'agree' })  告知平台用户已经同意，参数传同意按钮的id
-      // 为确保用户有同意的操作，基础库在 resolve 被调用后，会去检查对应的同意按钮有没有被点击过。检查通过后，相关隐私接口会继续调用
-      // 用户点击拒绝后，开发者调用 resolve({ buttonId:'disagree-btn', event:'disagree' }) 告知平台用户已经拒绝
-    }
+  data: {
+    showPrivacy: false
+  },
+  onLoad() {
+    wx.onNeedPrivacyAuthorization(resolve => {
+      // 需要用户同意隐私授权时
+      // 弹出开发者自定义的隐私授权弹窗
+      this.setData({
+        showPrivacy: true
+      })
+      this.resolvePrivacyAuthorization = resolve
+    })
+
+    wx.getUserProfile({
+      success: console.log,
+      fail: console.error
+    })
+  },
+  handleAgreePrivacyAuthorization() {
+    // 用户点击同意按钮后
+    this.resolvePrivacyAuthorization({ buttonId: 'agree-btn', event: 'agree' })
+    // 用户点击同意后，开发者调用 resolve({ buttonId: 'agree-btn', event: 'agree' })  告知平台用户已经同意，参数传同意按钮的id。为确保用户有同意的操作，基础库在 resolve 被调用后，会去检查对应的同意按钮有没有被点击过。检查通过后，相关隐私接口会继续调用
+    // 用户点击拒绝后，开发者调用 resolve({ event:'disagree' }) 告知平台用户已经拒绝
+  }
 })
-``` */
+```
+*
+* **完整示例demo**
+*
+* demo1: 演示使用 `wx.getPrivacySetting` 和 `<button open-type="agreePrivacyAuthorization">` 在首页处理隐私弹窗逻辑
+* [https://developers.weixin.qq.com/s/gi71sGm67hK0](https://developers.weixin.qq.com/s/gi71sGm67hK0)
+*
+* demo2: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个页面处理隐私弹窗逻辑，同时演示了如何处理多个隐私接口同时调用。
+* [https://developers.weixin.qq.com/s/4X7yyGmQ7EKp](https://developers.weixin.qq.com/s/4X7yyGmQ7EKp)
+*
+* demo3: 演示 `wx.onNeedPrivacyAuthorization`、`wx.requirePrivacyAuthorize`、`<button open-type="agreePrivacyAuthorization">` 和 `<input type="nickname">` 组件如何结合使用
+* [https://developers.weixin.qq.com/s/jX7xWGmA7UKa](https://developers.weixin.qq.com/s/jX7xWGmA7UKa)
+*
+* demo4: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个 tabBar 页面处理隐私弹窗逻辑。
+* [https://developers.weixin.qq.com/s/g6BWZGmt7XK9](https://developers.weixin.qq.com/s/g6BWZGmt7XK9) */
         onNeedPrivacyAuthorization(
-            /** 需要基础库： `2.33.0`
-             *
-             * resolve为callback的参数, 调用resolve函数可以进行状态上报，例如：resolve({ buttonId:'disagree-btn'， event:'agree' })。其中 buttonId 为隐私同意授权按钮的id，为确保用户有同意的操作，基础库在 resolve 被调用后，会去检查对应的同意按钮有没有被点击过。 */
-            callback: (...args: any[]) => any
+            /** 隐私接口需要用户授权事件的监听函数 */
+            listener: OnNeedPrivacyAuthorizationCallback
         ): void
         /** [wx.onNetworkStatusChange(function listener)](https://developers.weixin.qq.com/miniprogram/dev/api/device/network/wx.onNetworkStatusChange.html)
 *
@@ -25735,21 +25927,35 @@ wx.openCustomerServiceChat({
         ): PromisifySuccessResult<T, OpenLocationOption>
         /** [wx.openPrivacyContract(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.openPrivacyContract.html)
 *
-* 需要基础库： `2.33.0`
+* 需要基础库： `2.32.3`
 *
 * 在插件中使用：不支持
 *
-* 跳转至隐私协议页面
+* 跳转至隐私协议页面。隐私合规开发指南详情可见[《小程序隐私协议开发指南》](https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html)
 *
 * **示例代码**
 *
 * ```js
-  wx.openPrivacyContract({
-      success: () => {}, // 打开成功
-      fail: () => {}, // 打开失败
-      complete() => {}
-  })
-``` */
+wx.openPrivacyContract({
+  success: () => {}, // 打开成功
+  fail: () => {}, // 打开失败
+  complete() => {}
+})
+```
+*
+* **完整示例demo**
+*
+* demo1: 演示使用 `wx.getPrivacySetting` 和 `<button open-type="agreePrivacyAuthorization">` 在首页处理隐私弹窗逻辑
+* [https://developers.weixin.qq.com/s/gi71sGm67hK0](https://developers.weixin.qq.com/s/gi71sGm67hK0)
+*
+* demo2: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个页面处理隐私弹窗逻辑，同时演示了如何处理多个隐私接口同时调用。
+* [https://developers.weixin.qq.com/s/4X7yyGmQ7EKp](https://developers.weixin.qq.com/s/4X7yyGmQ7EKp)
+*
+* demo3: 演示 `wx.onNeedPrivacyAuthorization`、`wx.requirePrivacyAuthorize`、`<button open-type="agreePrivacyAuthorization">` 和 `<input type="nickname">` 组件如何结合使用
+* [https://developers.weixin.qq.com/s/jX7xWGmA7UKa](https://developers.weixin.qq.com/s/jX7xWGmA7UKa)
+*
+* demo4: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个 tabBar 页面处理隐私弹窗逻辑。
+* [https://developers.weixin.qq.com/s/g6BWZGmt7XK9](https://developers.weixin.qq.com/s/g6BWZGmt7XK9) */
         openPrivacyContract(option: OpenPrivacyContractOption): void
         /** [wx.openSetting(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/setting/wx.openSetting.html)
 *
@@ -25779,6 +25985,57 @@ wx.openSetting({
         openSetting<T extends OpenSettingOption = OpenSettingOption>(
             option?: T
         ): PromisifySuccessResult<T, OpenSettingOption>
+        /** [wx.openSingleStickerView(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/sticker/wx.openSingleStickerView.html)
+*
+* 需要基础库： `3.0.1`
+*
+* 在插件中使用：不支持
+*
+* 打开单个表情
+*
+* **示例代码**
+*
+* ```js
+wx.openSingleStickerView({
+  url: '',
+  success(res) {}
+})
+``` */
+        openSingleStickerView(option: OpenSingleStickerViewOption): void
+        /** [wx.openStickerIPView(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/sticker/wx.openStickerIPView.html)
+*
+* 需要基础库： `3.0.1`
+*
+* 在插件中使用：不支持
+*
+* 打开表情IP合辑
+*
+* **示例代码**
+*
+* ```js
+wx.openStickerIPView({
+  url: '',
+  success(res) {}
+})
+``` */
+        openStickerIPView(option: OpenStickerIPViewOption): void
+        /** [wx.openStickerSetView(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/sticker/wx.openStickerSetView.html)
+*
+* 需要基础库： `3.0.1`
+*
+* 在插件中使用：不支持
+*
+* 打开表情专辑
+*
+* **示例代码**
+*
+* ```js
+wx.openStickerSetView({
+  url: '',
+  success(res) {}
+})
+``` */
+        openStickerSetView(option: OpenStickerSetViewOption): void
         /** [wx.openSystemBluetoothSetting(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/base/system/wx.openSystemBluetoothSetting.html)
 *
 * 需要基础库： `2.20.1`
@@ -26510,49 +26767,151 @@ wx.requestSubscribeMessage({
         ): PromisifySuccessResult<T, RequestSubscribeMessageOption>
         /** [wx.requestVirtualPayment(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/payment/wx.requestVirtualPayment.html)
 *
-* 需要基础库： `2.33.0`
+* 需要基础库： `2.27.3`
 *
 * 在插件中使用：不支持
 *
-* 发起米大师支付
+* 发起米大师虚拟支付
+*
+* ****
+*
+* ## 注意事项：
+*
+* - 1. 目前只有 >= v2.27.3 的基础库支持该接口，后续将对更多低版本基础库支持该接口。因此建议开发者这样判断：当前用户的基础库版本 >= v2.27.3 时可以直接用 wx.requestVirtualPayment，小于 v2.27.3 时，用 wx.canIUse('requestVirtualPayment') 来判断接口是否可用。具体判断方法可参考示例代码。
 *
 * **示例代码**
 *
 * ```js
-wx.requestVirtualPayment({
-    signData: '{"offerId":"123","buyQuantity":1,"env":0,"currencyType":"CNY","platform":"android","productId":"testproductId","goodsPrice":10,"outTradeNo":"xxxxxx","attach":"testdata"}',
+function compareVersion(_v1, _v2) {
+  if (typeof _v1 !== 'string' || typeof _v2 !== 'string') return 0
+
+  const v1 = _v1.split('.')
+  const v2 = _v2.split('.')
+  const len = Math.max(v1.length, v2.length)
+
+  while (v1.length < len) {
+    v1.push('0')
+  }
+  while (v2.length < len) {
+    v2.push('0')
+  }
+
+  for (let i = 0; i < len; i++) {
+    const num1 = parseInt(v1[i], 10)
+    const num2 = parseInt(v2[i], 10)
+
+    if (num1 > num2) {
+      return 1
+    } else if (num1 < num2) {
+      return -1
+    }
+  }
+
+  return 0
+}
+
+const SDKVersion = wx.getSystemInfoSync().SDKVersion
+
+if (compareVersion(SDKVersion, '2.27.3') >= 0 || wx.canIUse('requestVirtualPayment')) {
+  wx.requestVirtualPayment({
+    signData: JSON.stringify({
+      offerId: '123',
+      buyQuantity: 1,
+      env: 0,
+      currencyType: 'CNY',
+      platform: 'android',
+      productId: 'testproductId',
+      goodsPrice: 10,
+      outTradeNo: 'xxxxxx',
+      attach: 'testdata',
+    }),
     paySig: 'd0b8bbccbe109b11549bcfd6602b08711f46600965253a949cd6a2b895152f9d',
     signature: 'd0b8bbccbe109b11549bcfd6602b08711f46600965253a949cd6a2b895152f9d',
     mode: 'short_series_goods',
     success(res) {
-        console.log('pay', res);
+      console.log('requestVirtualPayment success', res)
     },
-    fail({
-        errMsg,
-        errCode
-    }) {
-        console.error(errMsg, errCode)
-    }
-    })
-    ``` */
+    fail({ errMsg, errCode }) {
+      console.error(errMsg, errCode)
+    },
+  })
+} else {
+  console.log('当前用户的客户端版本不支持 wx.requestVirtualPayment')
+}
+``` */
         requestVirtualPayment(option: RequestVirtualPaymentOption): void
         /** [wx.requirePrivacyAuthorize(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.requirePrivacyAuthorize.html)
 *
-* 需要基础库： `2.33.0`
+* 需要基础库： `2.32.3`
 *
 * 在插件中使用：不支持
 *
-* 支持自定义隐私弹窗的主动拉起, 在自定义弹窗模式下调用会触发[onNeedPrivacyAuthorization事件](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.onNeedPrivacyAuthorization.html)
+* 模拟隐私接口调用，并触发隐私弹窗逻辑。隐私合规开发指南详情可见[《小程序隐私协议开发指南》](https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html)
+*
+* ****
+*
+* ## 具体说明：
+*
+* 调用 wx.requirePrivacyAuthorize() 时：
+*
+* - 1. 如果用户之前已经同意过隐私授权，会立即返回success回调，不会触发 wx.onNeedPrivacyAuthorization 事件。
+* - 2. 如果用户之前没有授权过，并且开发者注册了 [wx.onNeedPrivacyAuthorization()](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/privacy/wx.onNeedPrivacyAuthorization.html) 事件监听，就会立即触发 wx.onNeedPrivacyAuthorization 事件，然后开发者在 onNeedPrivacyAuthorization 回调中弹出自定义隐私授权弹窗，用户点了同意后开发者调用 wx.onNeedPrivacyAuthorization 的回调接口 resolve({ event: 'agree', buttonId: 'agree-btn' })，会触发 requirePrivacyAuthorize 的 success 回调。开发者调用 wx.onNeedPrivacyAuthorization 的回调接口 resolve({ event: 'disagree' }) 的话，会触发 requirePrivacyAuthorize 的 fail 回调。
+* - 3. 基于上述特性，开发者可以在调用任何真实隐私接口之前调用 wx.requirePrivacyAuthorize 接口来模拟隐私接口调用，并触发隐私弹窗逻辑。
 *
 * **示例代码**
 *
+* ```html
+* // page.wxml
+* <view wx:if="{{showPrivacy}}">
+*   <view>隐私弹窗内容....</view>
+*   <button id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">同意</button>
+* </view>
+* ```
 * ```js
-  wx.requirePrivacyAuthorize({
-      success: () => {}, // 用户同意授权
+// page.js
+Page({
+  data: {
+    showPrivacy: false
+  },
+  onLoad() {
+    wx.onNeedPrivacyAuthorization(resolve => {
+      // 需要用户同意隐私授权时
+      // 弹出开发者自定义的隐私授权弹窗
+      this.setData({
+        showPrivacy: true
+      })
+      this.resolvePrivacyAuthorization = resolve
+    })
+
+    wx.requirePrivacyAuthorize({
+      success: () => {
+        // 用户同意授权
+        // 继续小程序逻辑
+      },
       fail: () => {}, // 用户拒绝授权
-      complete() => {}
-  })
-``` */
+      complete: () => {}
+    })
+  },
+  handleAgreePrivacyAuthorization() {
+    // 用户点击同意按钮后
+    this.resolvePrivacyAuthorization({ buttonId: 'agree-btn', event: 'agree' })
+  }
+})
+```
+*
+* **完整示例demo**
+*
+* demo1: 演示使用 `wx.getPrivacySetting` 和 `<button open-type="agreePrivacyAuthorization">` 在首页处理隐私弹窗逻辑
+* [https://developers.weixin.qq.com/s/gi71sGm67hK0](https://developers.weixin.qq.com/s/gi71sGm67hK0)
+*
+* demo2: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个页面处理隐私弹窗逻辑，同时演示了如何处理多个隐私接口同时调用。
+* [https://developers.weixin.qq.com/s/4X7yyGmQ7EKp](https://developers.weixin.qq.com/s/4X7yyGmQ7EKp)
+*
+* demo3: 演示 `wx.onNeedPrivacyAuthorization`、`wx.requirePrivacyAuthorize`、`<button open-type="agreePrivacyAuthorization">` 和 `<input type="nickname">` 组件如何结合使用
+* [https://developers.weixin.qq.com/s/jX7xWGmA7UKa](https://developers.weixin.qq.com/s/jX7xWGmA7UKa)
+*
+* demo4: 演示使用 `wx.onNeedPrivacyAuthorization` 和 `<button open-type="agreePrivacyAuthorization">` 在多个 tabBar 页面处理隐私弹窗逻辑。
+* [https://developers.weixin.qq.com/s/g6BWZGmt7XK9](https://developers.weixin.qq.com/s/g6BWZGmt7XK9) */
         requirePrivacyAuthorize(option: RequirePrivacyAuthorizeOption): void
         /** [wx.reserveChannelsLive(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/channels/wx.reserveChannelsLive.html)
          *
@@ -26562,6 +26921,14 @@ wx.requestVirtualPayment({
          *
          * 预约视频号直播 */
         reserveChannelsLive(option: ReserveChannelsLiveOption): void
+        /** [wx.restartMiniProgram(Object object)](https://developers.weixin.qq.com/miniprogram/dev/api/navigate/wx.restartMiniProgram.html)
+         *
+         * 需要基础库： `3.0.1`
+         *
+         * 在插件中使用：不支持
+         *
+         * 重启当前小程序 */
+        restartMiniProgram(option: RestartMiniProgramOption): void
         /** [wx.revokeBufferURL(string url)](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.revokeBufferURL.html)
          *
          * 需要基础库： `2.14.0`
@@ -28733,7 +29100,7 @@ wx.writeBLECharacteristicValue({
     type CropImageFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type CropImageSuccessCallback = (
-        result: EditImageSuccessCallbackResult
+        result: CropImageSuccessCallbackResult
     ) => void
     /** 自定义渲染事件处理回调函数 */
     type CustomRendererFrameEventCallback = (
@@ -28778,7 +29145,7 @@ wx.writeBLECharacteristicValue({
     type EditImageFailCallback = (res: GeneralCallbackResult) => void
     /** 接口调用成功的回调函数 */
     type EditImageSuccessCallback = (
-        result: EditImageSuccessCallbackResult
+        result: CropImageSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type EnableAlertBeforeUnloadCompleteCallback = (
@@ -30051,6 +30418,10 @@ wx.writeBLECharacteristicValue({
     type OnMemoryWarningCallback = (
         result: OnMemoryWarningListenerResult
     ) => void
+    /** 隐私接口需要用户授权事件的监听函数 */
+    type OnNeedPrivacyAuthorizationCallback = (
+        res: GeneralCallbackResult
+    ) => void
     /** 网络状态变化事件的监听函数 */
     type OnNetworkStatusChangeCallback = (
         result: OnNetworkStatusChangeListenerResult
@@ -30261,6 +30632,36 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type OpenSettingSuccessCallback = (
         result: OpenSettingSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type OpenSingleStickerViewCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type OpenSingleStickerViewFailCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用成功的回调函数 */
+    type OpenSingleStickerViewSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type OpenStickerIPViewCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type OpenStickerIPViewFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type OpenStickerIPViewSuccessCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type OpenStickerSetViewCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type OpenStickerSetViewFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type OpenStickerSetViewSuccessCallback = (
+        res: GeneralCallbackResult
     ) => void
     /** 接口调用成功的回调函数 */
     type OpenSuccessCallback = (result: OpenSuccessCallbackResult) => void
@@ -30651,6 +31052,16 @@ wx.writeBLECharacteristicValue({
     ) => void
     /** 接口调用成功的回调函数 */
     type RequirePrivacyAuthorizeSuccessCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type RestartMiniProgramCompleteCallback = (
+        res: GeneralCallbackResult
+    ) => void
+    /** 接口调用失败的回调函数 */
+    type RestartMiniProgramFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type RestartMiniProgramSuccessCallback = (
         res: GeneralCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -31458,6 +31869,14 @@ wx.writeBLECharacteristicValue({
     /** 接口调用成功的回调函数 */
     type TakePhotoSuccessCallback = (
         result: TakePhotoSuccessCallbackResult
+    ) => void
+    /** 接口调用结束的回调函数（调用成功、失败都会执行） */
+    type TakeSnapshotCompleteCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用失败的回调函数 */
+    type TakeSnapshotFailCallback = (res: GeneralCallbackResult) => void
+    /** 接口调用成功的回调函数 */
+    type TakeSnapshotSuccessCallback = (
+        result: TakeSnapshotSuccessCallbackResult
     ) => void
     /** 接口调用结束的回调函数（调用成功、失败都会执行） */
     type ToScreenLocationCompleteCallback = (res: GeneralCallbackResult) => void

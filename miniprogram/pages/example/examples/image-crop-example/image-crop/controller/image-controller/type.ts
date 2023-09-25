@@ -10,6 +10,7 @@ type ImageController = {
   type: string;
   update: () => void;
   touchMove: () => void;
+  rotate: () => Promise<void>;
   getPosition: () => {x: number; y: number};
   getSize: () => {width: number; height: number};
   getActualPositionAndSize: () => {

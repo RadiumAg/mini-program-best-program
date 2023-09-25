@@ -15,4 +15,5 @@
 .image-controller {
   z-index: 21;
   position: absolute;
+  transition: transform 0.2s ease-in-out;
 }

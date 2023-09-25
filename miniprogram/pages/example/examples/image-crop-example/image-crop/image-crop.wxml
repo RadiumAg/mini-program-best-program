@@ -52,13 +52,13 @@
       src="{{src}}"
       crop="{{crop}}"
       container="{{container}}"
+      bind:init="handleImagecontrollerInit"
       bind:afterSetImageSize="handleAfterSetImageSize"
       bind:controllerTouchStart="handeControllerTouchStart"
-      bind:init="handleImagecontrollerInit"
     ></image-controller>
   </view>
 
-  <bottom-controller bind:complete="handleComplete"></bottom-controller>
+  <bottom-controller bind:complete="handleComplete" bind:rotate="handleRotate"></bottom-controller>
   <canvas-controller
     src="{{src}}"
     crop="{{crop}}"

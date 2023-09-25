@@ -1,7 +1,7 @@
 <view class="container">
-  <text>取消</text>
+  <text bind:tap="handleCancel">取消</text>
 
-  <text>旋转</text>
+  <text bind:tap="handleRotate">旋转</text>
 
   <text class="complete" bind:tap="handleComplete">完成</text>
 </view>

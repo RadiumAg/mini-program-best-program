@@ -21,7 +21,7 @@ Component({
     position: {
       x: 0,
       y: 0,
-      transform: "",
+      rotate: 0,
     },
     size: {
       scale: 1,
@@ -56,16 +56,19 @@ Component({
 
   observers: {
     "size.**"(size: typeof this.data.size) {
+      const {rotate} = this.data.position;
       this.setData({
         ["_style.width"]: `${size.width}rpx`,
         ["_style.height"]: `${size.height}rpx`,
-        ["_style.transform"]: `scale(${size.scale})`,
+        ["_style.transform"]: `scale(${size.scale}) rotate(${rotate}deg)`,
       });
     },
     "position.**"(position: typeof this.data.position) {
+      const {scale} = this.data.size;
       this.setData({
         ["_style.top"]: `${position.y}rpx`,
         ["_style.left"]: `${position.x}rpx`,
+        ["_style.transform"]: `scale(${scale}) rotate(${position.rotate}deg)`,
       });
     },
     "_style.**"() {
@@ -394,6 +397,13 @@ Component({
       }
     },
 
+    rotate() {
+      const {rotate} = this.data.position;
+      this.setData({
+        ["position.rotate"]: rotate + 90,
+      });
+    },
+
     update() {
       console.log("image controller updated");
     },
@@ -414,6 +424,7 @@ Component({
       getSize: () => {
         return {...this.data.size};
       },
+      rotate: this.rotate.bind(this),
       update: this.update.bind(this),
       touchMove: this.touchMove.bind(this),
       getActualPositionAndSize: this.getActualPositionAndSize.bind(this),

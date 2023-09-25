@@ -123,7 +123,13 @@ Component({
 
     async handleComplete() {
       const {_canvasController} = this.data;
-      console.log(await _canvasController?.cut());
+      _canvasController?.cut();
+    },
+
+    handleRotate() {
+      console.log("rotate");
+      const {imageController} = this.data;
+      imageController?.rotate();
     },
 
     checkBoundary(x: number, y: number, width: number, height: number) {

@@ -15,7 +15,7 @@ import type {
   ImageControllerInitEvent,
 } from "./controller/image-controller/type";
 import type {Crop} from "./crop/type";
-import {CanvasController} from "./controller/canvas-controller/type";
+import type {CanvasController} from "./controller/canvas-controller/type";
 
 Component({
   options: {
@@ -129,7 +129,6 @@ Component({
     },
 
     handleRotate() {
-      console.log("rotate");
       const {imageController} = this.data;
       imageController?.rotate();
     },

@@ -44,6 +44,7 @@ Component({
     _oldPosition: {
       x: 0,
       y: 0,
+      rotate: 0,
     },
     _style: {},
     _pxToRpx: 0,
@@ -156,6 +157,102 @@ Component({
       });
     },
 
+    touchMove(event: WechatMiniprogram.TouchEvent) {
+      if (this.data._isUpdate) return;
+
+      const [oldClientFirst, oldClientSecond] = this.data._oldClientArray;
+      const {_oldPosition, _pxToRpx} = this.data;
+
+      this.data._isUpdate = true;
+
+      if (event.touches.length === 1) {
+        const [touch] = event.touches;
+        const xDistance = (touch.clientX - oldClientFirst.x) * _pxToRpx;
+        const yDistance = (touch.clientY - oldClientFirst.y) * _pxToRpx;
+
+        let newX = _oldPosition.x + xDistance;
+        let newY = _oldPosition.y + yDistance;
+
+        const [width, height] = this.getRotateWidthHeight(
+          this.data.size.width,
+          this.data.size.height,
+          _oldPosition.rotate
+        );
+
+        [newX, newY] = this.checkBoundary(newX, newY, {
+          width,
+          height,
+          scale: this.data.size.scale,
+        });
+
+        this.setData(
+          {
+            "position.x": newX,
+            "position.y": newY,
+          },
+          () => {
+            this.data._isUpdate = false;
+          }
+        );
+      } else if (event.touches.length === 2) {
+        const {x, y} = this.data.position;
+        const {scale} = this.data._oldSize;
+        const [clientFirst, clientSecond] = event.touches;
+
+        const oldProportion = Math.sqrt(
+          (oldClientFirst.x - oldClientSecond.x) ** 2 +
+            (oldClientFirst.y - oldClientSecond.y) ** 2
+        );
+
+        const newProportion = Math.sqrt(
+          (clientFirst.clientX - clientSecond.clientX) ** 2 +
+            (clientFirst.clientY - clientSecond.clientY) ** 2
+        );
+
+        let newScale = scale + (newProportion / oldProportion - 1);
+        let newX = 0;
+        let newY = 0;
+
+        if (newScale > this.data.maxScale) {
+          newScale = this.data.maxScale;
+        } else if (newScale < this.data.minScale) {
+          newScale = this.data.minScale;
+        }
+
+        [newX, newY, newScale] = this.checkScale(x, y, {
+          ...this.data.size,
+          scale: newScale,
+        });
+
+        this.setData(
+          {
+            "position.x": newX,
+            "position.y": newY,
+            "size.scale": newScale,
+          },
+          () => {
+            this.data._isUpdate = false;
+          }
+        );
+      }
+    },
+
+    rotate() {
+      const {rotate} = this.data.position;
+      this.setData(
+        {
+          ["position.rotate"]: rotate + 90,
+        },
+        () => {
+          this.checkRotate();
+        }
+      );
+    },
+
+    update() {
+      console.log("image controller updated");
+    },
+
     handleTouchStart(event: WechatMiniprogram.TouchEvent) {
       this.data._oldSize = {...this.data.size};
       this.data._oldPosition = {...this.data.position};
@@ -177,7 +274,8 @@ Component({
         position.y,
         size.width,
         size.height,
-        size.scale
+        size.scale,
+        position.rotate
       );
 
       return {
@@ -188,15 +286,32 @@ Component({
       };
     },
 
+    getRotateWidthHeight(width: number, height: number, rotate: number) {
+      if (rotate % 180 === 0) {
+        [width, height] = [width, height];
+      } else {
+        [height, width] = [width, height];
+      }
+
+      return [width, height];
+    },
+
     transformToActualPositionAndSize(
       x: number,
       y: number,
       width: number,
       height: number,
-      scale: number
+      scale: number,
+      rotate: number
     ) {
-      const oldWidth = width;
-      const oldHeight = height;
+      let oldWidth = width;
+      let oldHeight = height;
+
+      [oldWidth, oldHeight] = this.getRotateWidthHeight(
+        oldWidth,
+        oldHeight,
+        rotate
+      );
 
       width = oldWidth * scale;
       height = oldHeight * scale;
@@ -214,33 +329,67 @@ Component({
 
     checkBoundary(x: number, y: number, size: typeof this.data.size) {
       const crop = this.data.crop as Crop;
-      const xInscrease = (size.width - size.width * size.scale) / 2;
-      const yInscrease = (size.height - size.height * size.scale) / 2;
+      const {rotate} = this.data.position;
 
-      if (x + xInscrease > crop.x) {
-        x = crop.x - xInscrease;
+      if (rotate % 180 === 0) {
+        const xInscrease = (size.width - size.width * size.scale) / 2;
+        const yInscrease = (size.height - size.height * size.scale) / 2;
 
-        console.log("左触底");
-      } else if (
-        x + xInscrease + size.width * size.scale <
-        crop.x + crop.width
-      ) {
-        x = crop.x + crop.width - size.width * size.scale - xInscrease;
+        if (x + xInscrease > crop.x) {
+          x = crop.x - xInscrease;
 
-        console.log("右触底");
-      }
+          console.log("左触底");
+        } else if (
+          x + xInscrease + size.width * size.scale <
+          crop.x + crop.width
+        ) {
+          x = crop.x + crop.width - size.width * size.scale - xInscrease;
 
-      if (y + yInscrease > crop.y) {
-        y = crop.y - yInscrease;
+          console.log("右触底");
+        }
 
-        console.log("上触底");
-      } else if (
-        y + yInscrease + size.height * size.scale <
-        crop.y + crop.height
-      ) {
-        y = crop.y + crop.height - size.height * size.scale - yInscrease;
+        if (y + yInscrease > crop.y) {
+          y = crop.y - yInscrease;
 
-        console.log("下触底");
+          console.log("上触底");
+        } else if (
+          y + yInscrease + size.height * size.scale <
+          crop.y + crop.height
+        ) {
+          y = crop.y + crop.height - size.height * size.scale - yInscrease;
+
+          console.log("下触底");
+        }
+      } else {
+        const xInscrease = (this.data.size.width - size.width * size.scale) / 2;
+        const yInscrease =
+          (this.data.size.height - size.height * size.scale) / 2;
+
+        if (x + xInscrease > crop.x) {
+          x = crop.x - xInscrease;
+
+          console.log("左触底");
+        } else if (
+          x + xInscrease + size.width * size.scale <
+          crop.x + crop.width
+        ) {
+          x = crop.x + crop.width - size.width * size.scale - xInscrease;
+
+          console.log("右触底");
+        }
+
+        if (y + yInscrease > crop.y) {
+          y = crop.y - yInscrease;
+
+          console.log("上触底");
+        } else if (
+          y + yInscrease + size.height * size.scale <
+          crop.y + crop.height
+        ) {
+          y = crop.y + crop.height - size.height * size.scale - yInscrease;
+
+          console.log("下触底");
+        }
       }
 
       return [x, y];
@@ -256,7 +405,6 @@ Component({
         },
 
         get yInscrease() {
-          console.log(scale);
           return (size.height - size.height * scale) / 2;
         },
       };
@@ -327,85 +475,50 @@ Component({
       return [x, y, scale];
     },
 
-    touchMove(event: WechatMiniprogram.TouchEvent) {
-      if (this.data._isUpdate) return;
-
-      const [oldClientFirst, oldClientSecond] = this.data._oldClientArray;
-      const {_oldPosition, _pxToRpx} = this.data;
-
-      this.data._isUpdate = true;
-
-      if (event.touches.length === 1) {
-        const [touch] = event.touches;
-        const xDistance = (touch.clientX - oldClientFirst.x) * _pxToRpx;
-        const yDistance = (touch.clientY - oldClientFirst.y) * _pxToRpx;
-
-        let newX = _oldPosition.x + xDistance;
-        let newY = _oldPosition.y + yDistance;
-
-        [newX, newY] = this.checkBoundary(newX, newY, this.data.size);
-
-        this.setData(
-          {
-            "position.x": newX,
-            "position.y": newY,
-          },
-          () => {
-            this.data._isUpdate = false;
-          }
-        );
-      } else if (event.touches.length === 2) {
-        const {x, y} = this.data.position;
-        const {scale} = this.data._oldSize;
-        const [clientFirst, clientSecond] = event.touches;
-
-        const oldProportion = Math.sqrt(
-          (oldClientFirst.x - oldClientSecond.x) ** 2 +
-            (oldClientFirst.y - oldClientSecond.y) ** 2
-        );
-
-        const newProportion = Math.sqrt(
-          (clientFirst.clientX - clientSecond.clientX) ** 2 +
-            (clientFirst.clientY - clientSecond.clientY) ** 2
-        );
-
-        let newScale = scale + (newProportion / oldProportion - 1);
-        let newX = 0;
-        let newY = 0;
-
-        if (newScale > this.data.maxScale) {
-          newScale = this.data.maxScale;
-        } else if (newScale < this.data.minScale) {
-          newScale = this.data.minScale;
-        }
-
-        [newX, newY, newScale] = this.checkScale(x, y, {
-          ...this.data.size,
-          scale: newScale,
-        });
-
-        this.setData(
-          {
-            "position.x": newX,
-            "position.y": newY,
-            "size.scale": newScale,
-          },
-          () => {
-            this.data._isUpdate = false;
-          }
-        );
-      }
-    },
-
-    rotate() {
+    checkRotate() {
+      const {crop} = this.data;
       const {rotate} = this.data.position;
-      this.setData({
-        ["position.rotate"]: rotate + 90,
-      });
-    },
+      const {width, height, scale} = this.data.size;
 
-    update() {
-      console.log("image controller updated");
+      let newWidth = width;
+      let newHeight = height;
+
+      [newWidth, newHeight] = this.getRotateWidthHeight(
+        newWidth,
+        newHeight,
+        rotate
+      );
+
+      let newScale = scale;
+
+      if (crop.height > newHeight) {
+        console.log("放大");
+        newScale = crop.height / newHeight;
+        this.setData({
+          ["size.scale"]: newScale,
+        });
+      } else if (crop.width > newWidth) {
+        console.log("缩小");
+        newScale = crop.width / newWidth;
+        this.setData({
+          ["size.scale"]: newScale,
+        });
+      }
+
+      const [newX, newY] = this.checkBoundary(
+        this.data.position.x,
+        this.data.position.y,
+        {
+          scale: newScale,
+          width: newWidth,
+          height: newHeight,
+        }
+      );
+
+      this.setData({
+        "position.x": newX,
+        "position.y": newY,
+      });
     },
   },
 

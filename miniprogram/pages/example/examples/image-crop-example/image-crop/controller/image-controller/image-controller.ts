@@ -316,8 +316,13 @@ Component({
       width = oldWidth * scale;
       height = oldHeight * scale;
 
-      x = x + (oldWidth - width) / 2;
-      y = y + (oldHeight - height) / 2;
+      if (rotate % 180 === 0) {
+        x = x + (oldWidth - width) / 2;
+        y = y + (oldHeight - height) / 2;
+      } else {
+        x = x + (this.data.size.width - width) / 2;
+        y = y + (this.data.size.height - height) / 2;
+      }
 
       return {
         x,
@@ -397,25 +402,42 @@ Component({
 
     checkScale(x: number, y: number, size: typeof this.data.size) {
       let scale = size.scale;
+      let width = size.width;
+      let height = size.height;
+      const {rotate} = this.data.position;
       const crop = this.data.crop as Crop;
 
-      const xYInscrease = {
-        get xInscrease() {
-          return (size.width - size.width * scale) / 2;
-        },
+      [width, height] = this.getRotateWidthHeight(width, height, rotate);
+      const xYInscrease = {} as {xInscrease: number; yInscrease: number};
 
-        get yInscrease() {
-          return (size.height - size.height * scale) / 2;
+      Object.defineProperties(xYInscrease, {
+        xInscrease: {
+          get: () => {
+            if (rotate % 180 === 0) {
+              return (width - width * scale) / 2;
+            } else {
+              return (this.data.size.width - width * scale) / 2;
+            }
+          },
         },
-      };
+        yInscrease: {
+          get: () => {
+            if (rotate % 180 === 0) {
+              return (height - size.height * scale) / 2;
+            } else {
+              return (this.data.size.height - height * scale) / 2;
+            }
+          },
+        },
+      });
 
       const checkLeftRight = () => {
         if (
           x + xYInscrease.xInscrease >= crop.x &&
-          x + xYInscrease.xInscrease + size.width * scale <= crop.x + crop.width
+          x + xYInscrease.xInscrease + width * scale <= crop.x + crop.width
         ) {
           // 缩小过程中同时靠边
-          scale = crop.width / size.width;
+          scale = crop.width / width;
           x = crop.x - xYInscrease.xInscrease;
 
           this.data._isScaleLock = true;
@@ -427,10 +449,10 @@ Component({
           console.log("左边靠边");
         } else if (
           // 缩小过程中右边靠边
-          x + xYInscrease.xInscrease + size.width * scale <=
+          x + xYInscrease.xInscrease + width * scale <=
           crop.x + crop.width
         ) {
-          x = crop.x + crop.width - size.width * scale - xYInscrease.xInscrease;
+          x = crop.x + crop.width - width * scale - xYInscrease.xInscrease;
 
           console.log("右边靠边");
         }
@@ -439,10 +461,9 @@ Component({
       const checkTopBottom = () => {
         if (
           y + xYInscrease.yInscrease >= crop.y &&
-          y + xYInscrease.yInscrease + size.height * scale <=
-            crop.y + crop.height
+          y + xYInscrease.yInscrease + height * scale <= crop.y + crop.height
         ) {
-          scale = crop.height / size.height;
+          scale = crop.height / height;
           y = crop.y - xYInscrease.yInscrease;
           this.data._isScaleLock = false;
 
@@ -452,11 +473,10 @@ Component({
 
           console.log("上靠边");
         } else if (
-          y + xYInscrease.yInscrease + size.height * scale <=
+          y + xYInscrease.yInscrease + height * scale <=
           crop.y + crop.height
         ) {
-          y =
-            crop.y + crop.height - size.height * scale - xYInscrease.yInscrease;
+          y = crop.y + crop.height - height * scale - xYInscrease.yInscrease;
 
           console.log("下靠边");
         }

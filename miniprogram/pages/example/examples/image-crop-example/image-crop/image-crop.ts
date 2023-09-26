@@ -123,7 +123,9 @@ Component({
 
     async handleComplete() {
       const {_canvasController} = this.data;
-      _canvasController?.cut();
+      const templateFile = _canvasController?.cut();
+
+      console.log(await templateFile);
     },
 
     handleRotate() {

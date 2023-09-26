@@ -46,7 +46,7 @@ Component({
       cut: async () => {
         const {imageController, crop, src, _pxToRpx, _canvas, _context} =
           this.data;
-
+        const {pixelRatio} = wx.getWindowInfo();
         if (
           imageController === null ||
           crop === null ||
@@ -84,11 +84,11 @@ Component({
         const {tempFilePath} = await wx.canvasToTempFilePath({
           canvas: _canvas,
 
-          x: canvasX / _pxToRpx,
-          y: canvasY / _pxToRpx,
+          x: canvasX / pixelRatio,
+          y: canvasY / pixelRatio,
 
-          width: crop.width / _pxToRpx,
-          height: crop.height / _pxToRpx,
+          width: crop.width / pixelRatio,
+          height: crop.height / pixelRatio,
         });
 
         return tempFilePath;

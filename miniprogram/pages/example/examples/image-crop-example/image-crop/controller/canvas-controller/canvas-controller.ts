@@ -70,6 +70,14 @@ Component({
           image.src = src;
 
           image.onload = () => {
+            _context.setTransform(
+              1,
+              0,
+              0,
+              1,
+              imageControllerPosition.width / 2,
+              imageControllerPosition.height / 2
+            );
             _context.rotate((rotate * Math.PI) / 180);
             _context.drawImage(
               image,

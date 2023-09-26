@@ -1,7 +1,7 @@
 /** @format */
 
 import {props} from "./props";
-import {getPxToRpx} from "../../utils/page";
+import {getPxToRpx, getRotateWidthHeight} from "../../utils/page";
 import type {Container} from "../../type";
 import type {Crop} from "../../crop/type";
 import type {
@@ -173,7 +173,7 @@ Component({
         let newX = _oldPosition.x + xDistance;
         let newY = _oldPosition.y + yDistance;
 
-        const [width, height] = this.getRotateWidthHeight(
+        const [width, height] = getRotateWidthHeight(
           this.data.size.width,
           this.data.size.height,
           _oldPosition.rotate
@@ -286,16 +286,6 @@ Component({
       };
     },
 
-    getRotateWidthHeight(width: number, height: number, rotate: number) {
-      if (rotate % 180 === 0) {
-        [width, height] = [width, height];
-      } else {
-        [height, width] = [width, height];
-      }
-
-      return [width, height];
-    },
-
     transformToActualPositionAndSize(
       x: number,
       y: number,
@@ -307,11 +297,7 @@ Component({
       let oldWidth = width;
       let oldHeight = height;
 
-      [oldWidth, oldHeight] = this.getRotateWidthHeight(
-        oldWidth,
-        oldHeight,
-        rotate
-      );
+      [oldWidth, oldHeight] = getRotateWidthHeight(oldWidth, oldHeight, rotate);
 
       width = oldWidth * scale;
       height = oldHeight * scale;
@@ -407,7 +393,7 @@ Component({
       const {rotate} = this.data.position;
       const crop = this.data.crop as Crop;
 
-      [width, height] = this.getRotateWidthHeight(width, height, rotate);
+      [width, height] = getRotateWidthHeight(width, height, rotate);
       const xYInscrease = {} as {xInscrease: number; yInscrease: number};
 
       Object.defineProperties(xYInscrease, {
@@ -503,11 +489,7 @@ Component({
       let newWidth = width;
       let newHeight = height;
 
-      [newWidth, newHeight] = this.getRotateWidthHeight(
-        newWidth,
-        newHeight,
-        rotate
-      );
+      [newWidth, newHeight] = getRotateWidthHeight(newWidth, newHeight, rotate);
 
       let newScale = scale;
 

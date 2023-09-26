@@ -5,4 +5,18 @@ const getPxToRpx = async () => {
   return +(750 / screenWidth).toFixed(2);
 };
 
-export {getPxToRpx};
+const getRotateWidthHeight = (
+  width: number,
+  height: number,
+  rotate: number
+) => {
+  if (rotate % 180 === 0) {
+    [width, height] = [width, height];
+  } else {
+    [height, width] = [width, height];
+  }
+
+  return [width, height];
+};
+
+export {getPxToRpx, getRotateWidthHeight};

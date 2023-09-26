@@ -54,28 +54,31 @@ Component({
         )
           return;
 
-        const imageControllerSize = imageController.getSize();
-        const imageControllerPosition = imageController.getPosition();
+        const imageControllerPosition =
+          imageController.getActualPositionAndSize();
+        const {rotate} = imageController.getPosition();
         const canvasX = crop.x - imageControllerPosition.x;
         const canvasY = crop.y - imageControllerPosition.y;
 
-        _canvas.width = imageControllerSize.width;
-        _canvas.height = imageControllerSize.height;
+        _canvas.width = imageControllerPosition.width;
+        _canvas.height = imageControllerPosition.height;
 
         await new Promise((resolve) => {
           const image = _canvas.createImage();
-          image.width = imageControllerSize.width;
-          image.height = imageControllerSize.height;
+          image.width = imageControllerPosition.width;
+          image.height = imageControllerPosition.height;
           image.src = src;
 
           image.onload = () => {
+            _context.rotate((rotate * Math.PI) / 180);
             _context.drawImage(
               image,
               0,
               0,
-              imageControllerSize.width,
-              imageControllerSize.height
+              imageControllerPosition.width,
+              imageControllerPosition.height
             );
+
             resolve("resolve");
           };
         });
